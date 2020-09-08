@@ -1,0 +1,23 @@
+Nos arquivos .h são definidos:
+
+1- tipos
+2- protótipos de funções
+3- A definiçao da classe
+4- Os métodos
+
+obs: esta é a interface da classe, quais são os serviços
+que ela possui.
+obs2: pode ou não definir um nome para os atributos.
+
+Nos arquivos .cpp
+
+1- implementação dos métodos/serviços da classe.
+2- Construtor da classe
+3- Colocar o nome da classe antes da implementação
+   faz com que identifique os métodos, se não colocar
+   são simplse funções.
+4- O destrutor deve desalocar memória.
+
+
+obs: a atribuição de valores no construtor
+deve aparecer ou no .h ou no .cpp

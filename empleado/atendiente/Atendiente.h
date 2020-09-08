@@ -5,8 +5,9 @@
 #ifndef TALLER_MECANICO_ATENDIENTE_H
 #define TALLER_MECANICO_ATENDIENTE_H
 
+#include "../Empleado.h"
 
-class Atendiente {
+class Atendiente: public Empleado {
 
 };
 

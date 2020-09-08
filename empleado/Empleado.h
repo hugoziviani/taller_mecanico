@@ -5,8 +5,16 @@
 #ifndef TALLER_MECANICO_EMPLEADO_H
 #define TALLER_MECANICO_EMPLEADO_H
 
+#include <string>
+using namespace std;
 
 class Empleado {
+
+    static int quantity; // variavel compartilhada por todos os objetos da classe.
+    // tem que ser iniciada no main
+    int id;
+    string nombre;
+    string setor;
 
 };
 

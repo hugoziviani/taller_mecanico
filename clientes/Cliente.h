@@ -5,8 +5,17 @@
 #ifndef TALLER_MECANICO_CLIENTE_H
 #define TALLER_MECANICO_CLIENTE_H
 
+#include "../vehiculo/Vehiculo.h"
+#include <string>
 
-class Cliente {
+using namespace std;
+
+class Cliente{
+    int id;
+    string nombre;
+    Vehiculo vehicle;
+    string telefono;
+
 
 };
 

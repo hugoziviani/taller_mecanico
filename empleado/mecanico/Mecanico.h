@@ -5,8 +5,13 @@
 #ifndef TALLER_MECANICO_MECANICO_H
 #define TALLER_MECANICO_MECANICO_H
 
+#include "../Empleado.h"
 
-class Mecanico {
+class Mecanico: public Empleado {
+private:
+    string funcion;
+
+
 
 };
 
