@@ -1,37 +1,70 @@
 #include "main.h"
 
 
-
-
 int Vehiculo :: contador = 0;
 int main() {
-    bool autorized;
-    autorized = menu();
+    bool autorized = true;
+//    autorized = userAutentication();
 
     if(autorized){
-        list <Vehiculo> gqlist1;
-        Vehiculo v = Vehiculo(01,"kazin", 112.3, "EXX4551");
-        Vehiculo a, b;
-        a = v;
-        b = v;
+        int *caso;
+        menu(caso);
+        switch (*caso) {
+            case 0: {
+                cout<<"Sliendo... Graciar por utilizar Zii-Programs"<<endl;
+                break;
+            }
+            case 1:{
+                cout<<"Bien Venido(a) al Taller Mecánico de Garcia Marquez"<<endl;
 
-        cout<<a << b << endl;
-        cout<<(a==b)<<endl;
-        cin>>b;
+                break;
+            }
+            case 2:{
+                cout<<"Hola!, Vas agregar un trabajador nuevo..."<<endl;
 
-        for (int i = 0; i < 10; i++)
-        {
-            //int id, const string &modelo, float kilometraje, const string &placa;
-            Vehiculo v;
-            v = Vehiculo(i,"ford", 199.0+i,"exx");
-            gqlist1.push_back(v);
+                break;
+            }
+            case 3:{
+                cout<<"Hola, Vas agregar/editar un Cliente"<<endl;
 
+                break;
+            }
+            case 4:{
+                cout<<"Que bueno! A crear/modificar una nueva orden de servicio"<<endl;
+                break;
+            }
+            case 5:{
+                cout<<"No lo sé"<<endl;
+
+            }
         }
     }
     return 0;
 }
 
-bool menu(){
+void options(){
+    cout<<"Elije tu opción:\n"
+          "1-Taller Meçanico\n"
+          "2-Agregar Trabajador\n"
+          "3-Agregar Cliente\n"
+          "4-Nueva Orden de Servicio\n"
+          "5-Consultar/Modificar Ordenes\n"
+          "0-Para salir\n"
+        <<endl;
+}
+
+void menu(int *input){
+    options();
+    cin >> *input;
+    while(cin.fail()){
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        options();
+        cin >> *input;
+    }
+}
+
+bool userAutentication(){
     string inputUsername, inputPass;
     cout<<"Hola, dime tu user:"<<endl;
     cin >> inputUsername;
@@ -43,7 +76,7 @@ bool menu(){
     autorized = login(usersAndPass, inputUsername, inputPass);
     if (autorized){
         cout<<"Bien Venido al Taller Mecánico de Juán Garcia"<<endl;
-        return PROGRAM;
+        return true;
     }else{
         cout<<"Vete a la mierda pinche Hacker!"<<endl;
     }
