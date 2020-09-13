@@ -5,24 +5,30 @@
 #ifndef TALLER_MECANICO_MAIN_H
 #define TALLER_MECANICO_MAIN_H
 
-#include "./vehiculo/Vehiculo.h"
-#include <iostream>
+
+#include "vehiculo/Vehiculo.h"
 #include <string>
 #include <cstring>
 #include <list>
 #include <fstream>
 #include <tuple>
 #include <vector>
+#include <iostream>
 #include <limits>
 
-#define PROGRAM 1
-#define ADD_USER 2
-#define ADD_USER 2
-
+#define N_OPTION 5
 using namespace std;
-void menu(int * input);
-bool userAutentication();
-list<tuple<int, string, string>> readFile(const char *path);
+
+
+int getOption(string module, void (*func)(string));
+void optionsBasic(string);
+void optionsMenu(string module);
+void programRoutes(string nameTaller);
 bool login(list<tuple<int, string, string>> usersAndPass, string user, string pass);
+list<tuple<int, string, string>> readFile(const char *path);
+bool userAutentication();
+
+
+
 
 #endif //TALLER_MECANICO_MAIN_H

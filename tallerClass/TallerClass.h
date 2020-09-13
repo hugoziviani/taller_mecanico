@@ -10,19 +10,21 @@
 #include "../clientes/Cliente.h"
 #include "../servicio/Servicios.h"
 
+using namespace std;
+
 class TallerClass {
 private:
-    int quantityEmpleados;
-    int quantityClientes;
-    int quantityServicios;
+    static int quantityEmpleados;
+    static int quantityClientes;
+    static int quantityServicios;
 
-private:
     Empleado empleados;
     Cliente clientes;
     Servicios servicios;
 
-
 };
+
+
 
 
 #endif //TALLER_MECANICO_TALLERCLASS_H

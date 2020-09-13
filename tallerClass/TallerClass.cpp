@@ -5,4 +5,5 @@
 #include "TallerClass.h"
 
 
-// atributo(parametroEntrada)
+
+

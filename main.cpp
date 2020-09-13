@@ -1,69 +1,152 @@
 #include "main.h"
 
-
 int Vehiculo :: contador = 0;
+
 int main() {
     bool autorized = true;
-//    autorized = userAutentication();
+    int *caso;
+
+    autorized = userAutentication();
 
     if(autorized){
-        int *caso;
-        menu(caso);
-        switch (*caso) {
-            case 0: {
-                cout<<"Sliendo... Graciar por utilizar Zii-Programs"<<endl;
-                break;
-            }
-            case 1:{
-                cout<<"Bien Venido(a) al Taller Mecánico de Garcia Marquez"<<endl;
-
-                break;
-            }
-            case 2:{
-                cout<<"Hola!, Vas agregar un trabajador nuevo..."<<endl;
-
-                break;
-            }
-            case 3:{
-                cout<<"Hola, Vas agregar/editar un Cliente"<<endl;
-
-                break;
-            }
-            case 4:{
-                cout<<"Que bueno! A crear/modificar una nueva orden de servicio"<<endl;
-                break;
-            }
-            case 5:{
-                cout<<"No lo sé"<<endl;
-
-            }
-        }
+        programRoutes("Hzii");
     }
     return 0;
 }
 
-void options(){
-    cout<<"Elije tu opción:\n"
-          "1-Taller Meçanico\n"
-          "2-Agregar Trabajador\n"
-          "3-Agregar Cliente\n"
-          "4-Nueva Orden de Servicio\n"
-          "5-Consultar/Modificar Ordenes\n"
-          "0-Para salir\n"
-        <<endl;
-}
-
-void menu(int *input){
-    options();
-    cin >> *input;
+int getOption(string module, void (*func)(string)) {
+    if (func== nullptr)return-1;
+    func(module);
+    int input;
+    cin >> input;
     while(cin.fail()){
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        options();
-        cin >> *input;
+        func(module);
+        cin >> input;
+    }
+    if (input>=0 and input <=N_OPTION){
+        return input;
+    }else return -1;
+}
+void optionsBasic(string module) {
+    string options[]={
+            "________"+module+"________:\n"+
+            "1-Registrar Nuevo " + module + "\n"+
+            "2-Editar " + module + "\n"+
+            "3-Consultar "+ module +"\n"};
+    cout<<*options;
+}
+void optionsMenu(string module) {
+    string options[]={
+            "________Taller " + module + "________:\n"+
+            "[Crear/Editar/Consultar]\n"+
+            "0-Sair\n"+
+            "1-Cliente\n"+
+            "2-Servicio\n"+
+            "3-Vehiculo\n"+
+            "4-Empleado\n"+
+            "5-Taller Administración \n"
+    };
+    cout<<*options;
+}
+void programRoutes(string nameTaller) {
+
+    int caso;
+    auto n = nameTaller;
+    caso = getOption(n, &optionsMenu);
+    switch (caso) {
+        case 0: {
+            cout<<"Sliendo... Graciar por utilizar Zii-Programs"<<endl;
+            break;
+        }
+        case 1:{
+
+            caso = getOption("Cliente", &optionsBasic);
+            switch (caso) {
+                case 1:{
+
+                }
+                case 2:{}
+                case 3:{}
+                default:{
+                    programRoutes(n);
+                }
+
+            }
+            break;
+        }
+        case 2:{
+
+            caso = getOption("Servicio", &optionsBasic);
+            switch (caso) {
+                case 1:{
+
+                }
+                case 2:{}
+                case 3:{}
+                default:{
+                    programRoutes(n);
+                }
+
+            }
+
+            break;
+        }
+        case 3:{
+            caso = getOption("Vehiculo", &optionsBasic);
+            switch (caso) {
+                case 1:{
+
+                }
+                case 2:{}
+                case 3:{}
+                default:{
+                    programRoutes(n);
+                }
+
+            }
+
+            break;
+        }
+        case 4:{
+            caso = getOption("Empleado", &optionsBasic);
+            switch (caso) {
+                case 1:{
+
+                }
+                case 2:{}
+                case 3:{}
+                default:{
+                    programRoutes(n);
+                }
+
+            }
+            break;
+        }
+        case 5:{
+            cout<<"Bien Venido(a) al Taller Mecánico de "<<nameTaller<<endl;
+            caso = getOption("Taller", &optionsBasic);
+            switch (caso) {
+                case 1:{
+
+                }
+                case 2:{}
+                case 3:{}
+                default:{
+                    programRoutes(n);
+                }
+
+            }
+            break;
+        }
+        default:{
+            cout<<"Tente otra opcion..."<<endl;
+            programRoutes(n);
+            break;
+        }
     }
 }
-
 bool userAutentication(){
     string inputUsername, inputPass;
     cout<<"Hola, dime tu user:"<<endl;
@@ -82,7 +165,6 @@ bool userAutentication(){
     }
     return false;
 }
-
 list<tuple<int, string, string>> readFile(const char *path){
     list<tuple<int, string, string>> usersAndPass;
     FILE *arq;
@@ -104,7 +186,6 @@ list<tuple<int, string, string>> readFile(const char *path){
     fclose(arq);
     return  usersAndPass;
 }
-
 bool login(list<tuple<int, string, string>> usersAndPass, string user, string pass){
     if (usersAndPass.empty()) return false;
     string us, ps;
