@@ -6,7 +6,7 @@
 #define TALLER_MECANICO_MAIN_H
 
 
-#include "vehiculo/Vehiculo.h"
+#include "tallerClass/TallerClass.h"
 #include <string>
 #include <cstring>
 #include <list>
@@ -23,11 +23,11 @@ using namespace std;
 int getOption(string module, void (*func)(string));
 void optionsBasic(string);
 void optionsMenu(string module);
-void programRoutes(string nameTaller);
+void programRoutes(string nameTaller, TallerClass *tallerObject);
 bool login(list<tuple<int, string, string>> usersAndPass, string user, string pass);
 list<tuple<int, string, string>> readFile(const char *path);
 bool userAutentication();
-
+void optionsTaller(string module);
 
 
 

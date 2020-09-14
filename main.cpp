@@ -1,56 +1,24 @@
 #include "main.h"
 
-int Vehiculo :: contador = 0;
+
+int TallerClass :: quantityEmpleados = 0;
+int TallerClass :: quantityClientes = 0;
+int TallerClass :: quantityServicios = 0;
+
 
 int main() {
     bool autorized = true;
     int *caso;
-
     autorized = userAutentication();
-
     if(autorized){
-        programRoutes("Hzii");
+        TallerClass *tallerObject = new TallerClass();
+        programRoutes("Hzii", tallerObject);
     }
     return 0;
 }
 
-int getOption(string module, void (*func)(string)) {
-    if (func== nullptr)return-1;
-    func(module);
-    int input;
-    cin >> input;
-    while(cin.fail()){
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
-        func(module);
-        cin >> input;
-    }
-    if (input>=0 and input <=N_OPTION){
-        return input;
-    }else return -1;
-}
-void optionsBasic(string module) {
-    string options[]={
-            "________"+module+"________:\n"+
-            "1-Registrar Nuevo " + module + "\n"+
-            "2-Editar " + module + "\n"+
-            "3-Consultar "+ module +"\n"};
-    cout<<*options;
-}
-void optionsMenu(string module) {
-    string options[]={
-            "________Taller " + module + "________:\n"+
-            "[Crear/Editar/Consultar]\n"+
-            "0-Sair\n"+
-            "1-Cliente\n"+
-            "2-Servicio\n"+
-            "3-Vehiculo\n"+
-            "4-Empleado\n"+
-            "5-Taller Administración \n"
-    };
-    cout<<*options;
-}
-void programRoutes(string nameTaller) {
+
+void programRoutes(string nameTaller, TallerClass *tallerObject) {
 
     int caso;
     auto n = nameTaller;
@@ -70,7 +38,7 @@ void programRoutes(string nameTaller) {
                 case 2:{}
                 case 3:{}
                 default:{
-                    programRoutes(n);
+                    programRoutes(n, nullptr);
                 }
 
             }
@@ -86,7 +54,7 @@ void programRoutes(string nameTaller) {
                 case 2:{}
                 case 3:{}
                 default:{
-                    programRoutes(n);
+                    programRoutes(n, nullptr);
                 }
 
             }
@@ -102,7 +70,7 @@ void programRoutes(string nameTaller) {
                 case 2:{}
                 case 3:{}
                 default:{
-                    programRoutes(n);
+                    programRoutes(n, nullptr);
                 }
 
             }
@@ -118,7 +86,7 @@ void programRoutes(string nameTaller) {
                 case 2:{}
                 case 3:{}
                 default:{
-                    programRoutes(n);
+                    programRoutes(n, nullptr);
                 }
 
             }
@@ -126,15 +94,20 @@ void programRoutes(string nameTaller) {
         }
         case 5:{
             cout<<"Bien Venido(a) al Taller Mecánico de "<<nameTaller<<endl;
-            caso = getOption("Taller", &optionsBasic);
+            caso = getOption("Taller", &optionsTaller);
+
             switch (caso) {
-                case 1:{
+                case 1:{ //
+                    tallerObject->printListEmpleados();
+                }
+                case 2:{
 
                 }
-                case 2:{}
-                case 3:{}
+                case 3:{
+
+                }
                 default:{
-                    programRoutes(n);
+                    programRoutes(n, nullptr);
                 }
 
             }
@@ -142,7 +115,7 @@ void programRoutes(string nameTaller) {
         }
         default:{
             cout<<"Tente otra opcion..."<<endl;
-            programRoutes(n);
+            programRoutes(n, nullptr);
             break;
         }
     }
@@ -158,7 +131,7 @@ bool userAutentication(){
     bool autorized;
     autorized = login(usersAndPass, inputUsername, inputPass);
     if (autorized){
-        cout<<"Bien Venido al Taller Mecánico de Juán Garcia"<<endl;
+        cout<<"Bien Venido al Taller Mecánico"<<endl;
         return true;
     }else{
         cout<<"Vete a la mierda pinche Hacker!"<<endl;
@@ -200,4 +173,48 @@ bool login(list<tuple<int, string, string>> usersAndPass, string user, string pa
         }
     }
     return false;
+}
+int getOption(string module, void (*func)(string)) {
+    if (func== nullptr)return-1;
+    func(module);
+    int input;
+    cin >> input;
+    while(cin.fail()){
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        func(module);
+        cin >> input;
+    }
+    if (input>=0 and input <=N_OPTION){
+        return input;
+    }else return -1;
+}
+void optionsBasic(string module) {
+    string options[]={
+            "________"+module+"________:\n"+
+            "1-Registrar Nuevo " + module + "\n"+
+            "2-Editar " + module + "\n"+
+            "3-Consultar "+ module +"\n"};
+    cout<<*options;
+}
+void optionsMenu(string module) {
+    string options[]={
+            "________Taller " + module + "________:\n"+
+            "[Crear/Editar/Consultar]\n"+
+            "0-Sair\n"+
+            "1-Cliente\n"+
+            "2-Servicio\n"+
+            "3-Vehiculo\n"+
+            "4-Empleado\n"+
+            "5-Taller Administración \n"
+    };
+    cout<<*options;
+}
+void optionsTaller(string module) {
+    string options[]={
+            "________"+module+"________:\n"+
+            "1-Consultar todos los empleados\n"+
+            "2-Consultar todos los clientes\n"+
+            "3-Consultar todos los servicios\n"};
+    cout<<*options;
 }

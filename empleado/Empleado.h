@@ -8,8 +8,17 @@
 #include <string>
 using namespace std;
 
-class Empleado {
 
+
+class Empleado {
+public:
+    Empleado(const string &nombre);
+
+private:
+public:
+    const string &getNombre() const;
+
+private:
     static int quantity; // variavel compartilhada por todos os objetos da classe.
     // tem que ser iniciada no main
     int id;

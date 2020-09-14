@@ -6,9 +6,11 @@
 #define TALLER_MECANICO_TALLERCLASS_H
 
 #include <string>
+#include <list>
 #include "../empleado/Empleado.h"
 #include "../clientes/Cliente.h"
 #include "../servicio/Servicios.h"
+#include "../vehiculo/Vehiculo.h"
 
 using namespace std;
 
@@ -17,10 +19,18 @@ private:
     static int quantityEmpleados;
     static int quantityClientes;
     static int quantityServicios;
+    static int quantityVehiculos;
 
-    Empleado empleados;
-    Cliente clientes;
-    Servicios servicios;
+    list<pair<int, Empleado*>> EmpleadosList;
+    list<pair<int, Cliente*>> ClientesList;
+    list<pair<int, Servicios*>> ServiciosList;
+    list<pair<int, Vehiculo*>> VehiculosList;
+public:
+
+    TallerClass();
+
+
+    void printListEmpleados();
 
 };
 

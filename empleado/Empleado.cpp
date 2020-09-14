@@ -3,3 +3,8 @@
 //
 
 #include "Empleado.h"
+Empleado::Empleado(const string &nombre) : nombre(nombre) {}
+
+const string &Empleado::getNombre() const {
+    return nombre;
+}

@@ -12,8 +12,6 @@ using namespace std;
 
 class Vehiculo {
 
-
-    static int contador;
     int id;
     string modelo;
     float kilometraje;

@@ -9,14 +9,9 @@ Vehiculo::Vehiculo(int id, const string &modelo, float kilometraje, const string
     id(id),
     modelo(modelo),
     kilometraje(kilometraje),
-    placa(placa) { this-> Vehiculo :: contador++;}
+    placa(placa) {}
 
 Vehiculo::~Vehiculo() {
-    this->contador--;
-}
-
-int Vehiculo::getContador() {
-    return contador;
 }
 
 int Vehiculo::getId() {
