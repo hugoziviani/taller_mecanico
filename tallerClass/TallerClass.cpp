@@ -6,11 +6,11 @@
 
 
 TallerClass::TallerClass() {
-    this->EmpleadosList.emplace_front(1, new Empleado("juca"));
+
 }
 
 
 void TallerClass::printListEmpleados() {
-    for (auto& x: this->EmpleadosList)
+    for (auto& x: this->empleadosList)
         std::cout << " (" << x.first << "," << (x.second)->getNombre() << ")";
 }

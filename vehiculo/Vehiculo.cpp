@@ -63,10 +63,13 @@ void showlist(list<Vehiculo> g){
 }
 
 ostream &operator<<(ostream &os, const Vehiculo &vehiculo) {
-    os  << "\n Id: " << vehiculo.id
-        << "\n Modelo: " << vehiculo.modelo
-        << "\n Kilometraje: " << vehiculo.kilometraje
-        << "\n Placa: " << vehiculo.placa;
+    os
+    << "\n{"
+    << "\n \"id\": " << "\""<<vehiculo.id<<"\","
+    << "\n \"modelo\": " << "\""<<vehiculo.modelo<<"\","
+    << "\n \"kilometraje\": " << "\""<<vehiculo.kilometraje<<"\","
+    << "\n \"placa\": " << "\""<<vehiculo.placa<<"\""
+    << "\n}";
     return os;
 }
 istream &operator>>(istream &is,Vehiculo &vehiculo) {

@@ -6,25 +6,30 @@
 #define TALLER_MECANICO_EMPLEADO_H
 
 #include <string>
+#include <ostream>
+
 using namespace std;
 
-
-
 class Empleado {
-public:
-    Empleado(const string &nombre);
-
 private:
-public:
-    const string &getNombre() const;
-
-private:
-    static int quantity; // variavel compartilhada por todos os objetos da classe.
-    // tem que ser iniciada no main
     int id;
     string nombre;
     string setor;
 
+public:
+
+    Empleado(int id, const string &nombre, const string &setor);
+
+    virtual ~Empleado();
+
+    int getId() const;
+    void setId(int id);
+
+    const string &getNombre() const;
+    void setNombre(const string &nombre);
+
+    const string &getSetor() const;
+    void setSetor(const string &setor);
 };
 
 

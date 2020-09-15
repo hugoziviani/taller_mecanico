@@ -35,8 +35,6 @@ public:
     const string &getPlaca() const;
     void setPlaca(const string &placa);
 
-    static int getContador();
-
     Vehiculo& operator=(const Vehiculo&);
     friend bool operator==(const Vehiculo& vehiculo1, const Vehiculo& vehiculo2);
     friend void showlist(list<Vehiculo>);

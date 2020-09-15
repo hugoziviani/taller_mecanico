@@ -24,10 +24,14 @@ int getOption(string module, void (*func)(string));
 void optionsBasic(string);
 void optionsMenu(string module);
 void programRoutes(string nameTaller, TallerClass *tallerObject);
-bool login(list<tuple<int, string, string>> usersAndPass, string user, string pass);
+int loginAndReturnUserType(list<tuple<int, string, string>> usersAndPass, string user, string pass);
 list<tuple<int, string, string>> readFile(const char *path);
-bool userAutentication();
+int userAutenticationAndRedirect();
 void optionsTaller(string module);
+
+void optionsAdm(string);
+void optionsMecanico(string);
+void optionsAtendiente(string);
 
 
 

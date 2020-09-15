@@ -8,7 +8,16 @@
 #include "../Empleado.h"
 
 class Atendiente: public Empleado {
+    int ventasHechas;
+    /* TODO Gerar OS
+     *      Autorizar OS
+     *      Fechar OS
+     */
+public:
+    Atendiente(int id, const string &nombre, const string &setor, int ventasHechas);
 
+    int getVentasHechas() const;
+    void setVentasHechas(int ventasHechas);
 };
 
 

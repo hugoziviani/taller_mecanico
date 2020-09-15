@@ -21,10 +21,10 @@ private:
     static int quantityServicios;
     static int quantityVehiculos;
 
-    list<pair<int, Empleado*>> EmpleadosList;
-    list<pair<int, Cliente*>> ClientesList;
-    list<pair<int, Servicios*>> ServiciosList;
-    list<pair<int, Vehiculo*>> VehiculosList;
+    list<pair<int, Empleado*>> empleadosList;
+    list<pair<int, Cliente*>> clientesList;
+    list<pair<int, Servicios*>> serviciosList;
+    list<pair<int, Vehiculo*>> vehiculosList;
 public:
 
     TallerClass();
