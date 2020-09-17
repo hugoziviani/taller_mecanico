@@ -12,7 +12,7 @@ int main() {
     int autorized, option;
 
     TallerClass *taller = new TallerClass();
-    autorized = userAutenticationAndRedirect(0);
+    autorized = userAutenticationAndRedirect();
     if (autorized == -1) return 0;
     while (autorized != -1) {
         switch (autorized) {
@@ -32,12 +32,10 @@ int main() {
                         }
                         case 2: {
                             cout << "Editar Servicios" << endl;
-//                            option = -1;
                             break;
                         }
                         case 3: {
                             cout << "Añadir Trabajador" << endl;
-//                            option = -1;
                             break;
                         }
                         case 9: {
@@ -46,7 +44,6 @@ int main() {
                             autorized=9;
                             break;
                         }
-
                         default: {
                             cout <<"Opção inválida" << endl;
                         }
@@ -121,11 +118,8 @@ int main() {
         if(autorized==9){
             return 0;
         }else
-            autorized = userAutenticationAndRedirect(0);
-
+            autorized = userAutenticationAndRedirect();
     }
-
-
 delete taller;
     return 0;
 }
@@ -232,7 +226,7 @@ void programRoutes(string nameTaller, TallerClass *tallerObject) {
         }
     }
 }
-int userAutenticationAndRedirect(int intentos) {
+int userAutenticationAndRedirect() {
     string inputUsername, inputPass;
     cout<<"Hola, dime tu user:"<<endl;
     cin >> inputUsername;

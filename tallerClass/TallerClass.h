@@ -8,6 +8,8 @@
 #include <string>
 #include <list>
 #include "../empleado/Empleado.h"
+#include "../empleado/atendiente/Atendiente.h"
+#include "../empleado/mecanico/Mecanico.h"
 #include "../clientes/Cliente.h"
 #include "../servicio/Servicios.h"
 #include "../vehiculo/Vehiculo.h"
@@ -31,6 +33,8 @@ public:
     TallerClass();
 
     void anadirEmpleado(Empleado* empleado);
+    void anadirMecanico(Mecanico* empleado); //Ponteiros genéricos.
+    void anadirAtendiente(Atendiente* empleado);
     void printListEmpleados();
 
     static int getQuantityEmpleados();

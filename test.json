@@ -1,0 +1,12 @@
+{
+  "id" : 99,
+  "nombre" : "JC",
+  "telefono" : "3344-444",
+  "vehicle" :
+  {
+    "id": "0",
+    "modelo": "",
+    "kilometraje": "0",
+    "placa": ""
+  }
+}
