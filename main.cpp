@@ -1,100 +1,132 @@
 #include "main.h"
+#include "tallerClass/TallerClass.h"
 
 
 int TallerClass :: quantityEmpleados = 0;
 int TallerClass :: quantityClientes = 0;
 int TallerClass :: quantityServicios = 0;
+int TallerClass :: quantityVehiculos = 0;
 
 
 int main() {
     int autorized, option;
-    autorized = userAutenticationAndRedirect();
-    while (autorized!=-1){
-        switch (autorized) {
-            case 0:{
-                cout<<"Admin Profile"<<endl;
-                option = getOption("Adminstración", &optionsAdm);
-                while (option!=-1){
-                    switch (option) {
-                        case 1:{
-                            cout<<"Editar Ventas"<<endl;
-                            option = -1;
-                            break;
-                        }
-                        case 2:{
-                            cout<<"Editar Servicios"<<endl;
-                            option = -1;
-                            break;
-                        }
-                        default:{
-                            cout<<"Opção inválida"<<endl;
-                            option = getOption("Adminstración", &optionsAdm);
-                            break;
-                        }
-                    }
-                }
-                autorized=-1;
-                break;
-            }
-            case 1:{
-                cout<<"Mecanico Profile"<<endl;
-                option = getOption("Mecánico", &optionsMecanico);
-                while (option!=-1){
-                    switch (option) {
-                        case 1:{
-                            cout<<"Visualisar Ordenes de Servicio Liberadas"<<endl;
-                            option = -1;
-                            break;
-                        }
-                        case 2:{
-                            cout<<"Tomar la orden de servicio"<<endl;
-                            option = -1;
-                            break;
-                        }
-                        default:{
-                            cout<<"Opção inválida"<<endl;
-                            option = getOption("Adminstración", &optionsAdm);
-                            break;
-                        }
-                    }
-                }
-                autorized=-1;
-                break;
-            }
-            case 2:{
-                cout<<"Atendiente Profile"<<endl;
-                option = getOption("Atendiente", &optionsAtendiente);
-                while (option!=-1){
-                    switch (option) {
-                        case 1:{
-                            cout<<"Crear Orden de Servicio"<<endl;
-                            option = -1;
-                            break;
-                        }
-                        case 2:{
-                            cout<<"Editar Servicios"<<endl;
-                            option = -1;
-                            break;
-                        }
-                        default:{
-                            cout<<"Opção inválida"<<endl;
-                            option = getOption("Atendiente", &optionsAtendiente);
-                            break;
-                        }
-                    }
-                }
-                autorized=-1;
-                break;
-            }
-            default:{
-                cout<<"No fué possible acenderte al sistema"<<endl;
-                autorized = userAutenticationAndRedirect();
-            }
 
+    TallerClass *taller = new TallerClass();
+    autorized = userAutenticationAndRedirect(0);
+    if (autorized == -1) return 0;
+    while (autorized != -1) {
+        switch (autorized) {
+            case 1: {
+                option = 0;
+                while (option != -1) {
+                    option = getOption("Adminstración", &optionsAdm);
+                    switch (option) {
+                        case 0: {
+                            cout << "\nCambiando de user" << endl;
+                            option = -1;
+                            break;
+                        }
+                        case 1: {
+                            cout << "Editar Ventas" << endl;
+                            break;
+                        }
+                        case 2: {
+                            cout << "Editar Servicios" << endl;
+//                            option = -1;
+                            break;
+                        }
+                        case 3: {
+                            cout << "Añadir Trabajador" << endl;
+//                            option = -1;
+                            break;
+                        }
+                        case 9: {
+                            cout << "\nSaliendo..." << endl;
+                            option = -1;
+                            autorized=9;
+                            break;
+                        }
+
+                        default: {
+                            cout <<"Opção inválida" << endl;
+                        }
+                    }
+                }
+                break;
+            }
+            case 2: {
+                option = 0;
+                while (option != -1) {
+                    option = getOption("Mecánico", &optionsMecanico);
+                    switch (option) {
+                        case 0: {
+                            cout << "\nCambiando de user" << endl;
+                            option = -1;
+                            break;
+                        }
+                        case 1: {
+                            cout << "Visualisar Ordenes de Servicio Liberadas" << endl;
+                            break;
+                        }
+                        case 2: {
+                            cout << "Tomar la orden de servicio" << endl;
+                            break;
+                        }
+                        case 9: {
+                            cout << "\nSaliendo..." << endl;
+                            option = -1;
+                            autorized=9;
+                            break;
+                        }
+                        default: {
+                            cout << "Opção inválida" << endl;
+                        }
+                    }
+                }
+                break;
+            }
+            case 3: {
+                option=0;
+                while (option != -1) {
+                    option = getOption("Atendiente", &optionsAtendiente);
+                    switch (option) {
+                        case 0: {
+                            cout << "\nCambiando de user" << endl;
+                            option = -1;
+                            break;
+                        }
+                        case 1: {
+                            cout << "Crear Orden de Servicio" << endl;
+                            break;
+                        }
+                        case 2: {
+                            cout << "Editar Servicios" << endl;
+                            break;
+                        }
+                        case 9: {
+                            cout << "\nSaliendo..." << endl;
+                            option = -1;
+                            autorized=9;
+                            break;
+                        }
+                        default: {
+                            cout << "Opção inválida" << endl;
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
         }
+        if(autorized==9){
+            return 0;
+        }else
+            autorized = userAutenticationAndRedirect(0);
+
     }
 
 
+delete taller;
     return 0;
 }
 
@@ -200,7 +232,7 @@ void programRoutes(string nameTaller, TallerClass *tallerObject) {
         }
     }
 }
-int userAutenticationAndRedirect(){
+int userAutenticationAndRedirect(int intentos) {
     string inputUsername, inputPass;
     cout<<"Hola, dime tu user:"<<endl;
     cin >> inputUsername;
@@ -225,7 +257,6 @@ list<tuple<int, string, string>> readFile(const char *path){
     char buffer[BUFSIZ] ;
     char delimiters[]=":\n";
     arq = fopen(path, "r") ;
-    int count_lines = 0;
 
     while(fgets(buffer, BUFSIZ, arq) != NULL) {
         int type = atoi(strtok(buffer, delimiters));
@@ -301,14 +332,21 @@ void optionsAdm(string module) {
     string options[]={
             "________"+module+"________:\n"+
             "1-Consultar Ventas y Servicios\n"+
-            "2-Editar Venta o Servicio\n"};
+            "2-Editar Venta o Servicio\n"
+            "3-Añadir Trabajador\n"
+            "0-Cambiar de usuario\n"
+            "9-Salir de la Aplicación\n"
+    };
     cout<<*options;
 }
 void optionsMecanico(string module) {
     string options[]={
             "________"+module+"________:\n"+
             "1-Visualizar Ordenes de Servicio\n"+
-            "2-Tomar Orden de Servicio\n"};
+            "2-Tomar Orden de Servicio\n"
+            "0-Cambiar de usuario\n"
+            "9-Salir de la Aplicación\n"
+    };
     cout<<*options;
 }
 void optionsAtendiente(string module) {
@@ -316,6 +354,9 @@ void optionsAtendiente(string module) {
             "________"+module+"________:\n"+
             "1-Visualizar Ordenes de Servicio\n"+
             "2-Emitir Orden de Servicio\n"+
-            "3-Atualizar Ordenes de Servicio\n"};
+            "3-Atualizar Ordenes de Servicio\n"
+            "0-Cambiar de usuario\n"
+            "9-Salir de la Aplicación\n"
+    };
     cout<<*options;
 }

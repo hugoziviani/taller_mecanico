@@ -26,7 +26,7 @@ void optionsMenu(string module);
 void programRoutes(string nameTaller, TallerClass *tallerObject);
 int loginAndReturnUserType(list<tuple<int, string, string>> usersAndPass, string user, string pass);
 list<tuple<int, string, string>> readFile(const char *path);
-int userAutenticationAndRedirect();
+int userAutenticationAndRedirect(int intentos);
 void optionsTaller(string module);
 
 void optionsAdm(string);

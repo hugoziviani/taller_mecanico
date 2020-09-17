@@ -25,12 +25,24 @@ private:
     list<pair<int, Cliente*>> clientesList;
     list<pair<int, Servicios*>> serviciosList;
     list<pair<int, Vehiculo*>> vehiculosList;
+
 public:
 
     TallerClass();
 
-
+    void anadirEmpleado(Empleado* empleado);
     void printListEmpleados();
+
+    static int getQuantityEmpleados();
+    static void setQuantityEmpleados(int quantityEmpleados);
+    static int getQuantityClientes();
+    static void setQuantityClientes(int quantityClientes);
+    static int getQuantityServicios();
+    static void setQuantityServicios(int quantityServicios);
+    static int getQuantityVehiculos();
+    static void setQuantityVehiculos(int quantityVehiculos);
+
+
 
 };
 
