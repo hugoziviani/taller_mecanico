@@ -17,7 +17,7 @@ class Cliente{
     Vehiculo *vehicle; //TODO transformar em lista de veiculos
     string telefono;
 public:
-    Cliente(int id, const string &nombre, const string &telefono, Vehiculo *vehicle);
+    Cliente(int id=0, const string &nombre="", const string &telefono="", Vehiculo &vehicle = *(new Vehiculo()));
     virtual ~Cliente();
 
     int getId() const;

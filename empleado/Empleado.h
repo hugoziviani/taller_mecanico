@@ -7,6 +7,7 @@
 
 #include <string>
 #include <ostream>
+#include <ctime>
 
 using namespace std;
 
@@ -15,10 +16,9 @@ private:
     int id;
     string nombre;
     string setor;
-
 public:
-
     Empleado(int id, const string &nombre, const string &setor);
+
 
     virtual ~Empleado();
 
@@ -30,6 +30,12 @@ public:
 
     const string &getSetor() const;
     void setSetor(const string &setor);
+
+    friend ostream &operator<<(ostream &os, const Empleado &empleado);
+
+    time_t getAgregadoEn() const;
+    void setAgregadoEn(time_t agregadoEn);
+
 };
 
 

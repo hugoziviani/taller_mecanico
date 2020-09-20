@@ -5,9 +5,9 @@
 #include "Cliente.h"
 
 
-Cliente::Cliente(int id, const string &nombre, const string &telefono, Vehiculo *vehicle) :
+Cliente::Cliente(int id, const string &nombre, const string &telefono, Vehiculo &vehicle) :
                  id(id), nombre(nombre),
-                 vehicle(vehicle),
+                 vehicle(&vehicle),
                  telefono(telefono) {}
 
 Cliente::~Cliente() {

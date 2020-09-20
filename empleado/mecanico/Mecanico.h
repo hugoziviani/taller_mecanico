@@ -6,6 +6,7 @@
 #define TALLER_MECANICO_MECANICO_H
 
 #include "../Empleado.h"
+#include <iostream>
 
 class Mecanico: public Empleado {
 private:
@@ -13,7 +14,7 @@ private:
     bool disponible;
 public:
 
-    Mecanico(int id, const string &nombre, const string &setor, const string &funcion, bool disponible);
+    Mecanico(int id=0, const string &nombre="", const string &setor="", const string &funcion="", bool disponible=true);
 
     virtual ~Mecanico();
 

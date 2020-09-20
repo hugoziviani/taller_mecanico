@@ -18,3 +18,8 @@ void Atendiente::setVentasHechas(int ventasHechas) {
     Atendiente::ventasHechas = ventasHechas;
 }
 
+ostream &operator<<(ostream &os, const Atendiente &atendiente) {
+    os << static_cast<const Empleado &>(atendiente) << " ventasHechas: " << atendiente.ventasHechas;
+    return os;
+}
+

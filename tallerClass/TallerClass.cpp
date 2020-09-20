@@ -1,30 +1,73 @@
-//
-// Created by Hugo Ziviani on 9/1/20.
-//
-
 #include "TallerClass.h"
 
 
 TallerClass::TallerClass() {
 
 }
-
-void TallerClass::anadirEmpleado(Empleado* empleado) {
-    empleado->setId(TallerClass::getQuantityEmpleados());
-    TallerClass::empleadosList.emplace_front(TallerClass::getQuantityEmpleados(), empleado);
-    TallerClass::setQuantityEmpleados(TallerClass::getQuantityEmpleados()+1);
+TallerClass::~TallerClass() {
+    if (getQuantityEmpleados(ATEMDIENTE) > 0) {
+        for (auto &x: TallerClass::mecanicoList)
+            delete x.second;
+    }
+    if(getQuantityEmpleados(MECANICO) > 0){
+        for (auto& x: TallerClass::atendienteList)
+            delete x.second;
+    }
 }
 
-void TallerClass::printListEmpleados() {
-    for (auto& x: this->empleadosList)
-        std::cout << " (" << x.first << "," << (x.second)->getNombre() << ")";
+void TallerClass::anadirAtendiente(const string &nombre, const string &setor){
+    Atendiente *a = new Atendiente(UniqueId().id, nombre, setor, 0);
+
+    TallerClass::atendienteList.emplace_front(UniqueId().id, a);
+    TallerClass::setQuantityEmpleados(TallerClass::getQuantityEmpleados(ATEMDIENTE) + 1, ATEMDIENTE);
+}
+void TallerClass::anadirMecanico(const string &nombre, const string &setor, const string &funcion) {
+    Mecanico *m = new Mecanico(UniqueId().id, nombre, setor, funcion);
+
+    TallerClass::mecanicoList.emplace_front(UniqueId().id, m);
+    TallerClass::setQuantityEmpleados(TallerClass::getQuantityEmpleados(MECANICO) + 1, MECANICO);
 }
 
-int TallerClass::getQuantityEmpleados() {
-    return quantityEmpleados;
+void TallerClass::anadirCliente(const string &nombre, const string &telefono, string modelo, float kilometraje, string placa) {
+    Vehiculo *v = new Vehiculo(UniqueId().id, modelo, kilometraje, placa);
+    Cliente *c = new Cliente(UniqueId().id, nombre, telefono, *v);
+
+    TallerClass::clientesList.emplace_front(UniqueId().id, c);
+    TallerClass::setQuantityClientes(TallerClass::getQuantityClientes()+ 1);
 }
-void TallerClass::setQuantityEmpleados(int quantityEmpleados) {
-    TallerClass::quantityEmpleados = quantityEmpleados;
+
+void TallerClass::printListElements(int typeList) {
+    if (typeList == ATEMDIENTE){
+        for (auto& x: TallerClass::atendienteList)
+            cout << " (" << x.first << "," << *(x.second) << ")";
+    }
+    if (typeList == MECANICO){
+        for (auto& x: TallerClass::mecanicoList)
+            cout << " (" << x.first << "," << *(x.second) << ")";
+    }
+    if (typeList == CLIENTES){
+        for (auto& x: TallerClass::clientesList)
+            cout << " (" << x.first << "," << *(x.second) << ")";
+    }
+
+}
+
+int TallerClass::getQuantityEmpleados(int typeEmpleado) {
+    if (typeEmpleado == ATEMDIENTE){
+        return quantityAtendientes;
+    }
+    if (typeEmpleado == MECANICO){
+        return quantityMecanicos;
+    }
+    return -1;
+}
+void TallerClass::setQuantityEmpleados(int quantityEmpleados, int typeEmpleado) {
+    if (typeEmpleado == ATEMDIENTE){
+        TallerClass:: quantityAtendientes = quantityEmpleados;
+    }
+    if (typeEmpleado == MECANICO){
+        TallerClass:: quantityMecanicos = quantityEmpleados;
+    }
 }
 int TallerClass::getQuantityClientes() {
     return quantityClientes;

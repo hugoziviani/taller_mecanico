@@ -1,17 +1,31 @@
 #include "main.h"
 #include "tallerClass/TallerClass.h"
+#include "UniqueId.h"
 
-
-int TallerClass :: quantityEmpleados = 0;
+int TallerClass :: quantityAtendientes = 0;
+int TallerClass :: quantityMecanicos = 0;
 int TallerClass :: quantityClientes = 0;
 int TallerClass :: quantityServicios = 0;
 int TallerClass :: quantityVehiculos = 0;
 
+int UniqueId :: nextID = 0;
 
 int main() {
     int autorized, option;
 
     TallerClass *taller = new TallerClass();
+
+    taller->anadirAtendiente("juan garcia", "importados");
+    taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
+    taller->anadirAtendiente("ximenez KK", "calle testes");
+
+    taller->anadirCliente("Ricochete", "22-2.333333","kazin", 0.0, "EQK-9999");
+
+    //taller->printListElements(MECANICO);
+    //taller->printListElements(ATEMDIENTE);
+    taller->printListElements(CLIENTES);
+
+    /*
     autorized = userAutenticationAndRedirect();
     if (autorized == -1) return 0;
     while (autorized != -1) {
@@ -36,6 +50,14 @@ int main() {
                         }
                         case 3: {
                             cout << "Añadir Trabajador" << endl;
+
+                            taller->anadirAtendiente("juan garcia", "importados");
+                            taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
+                            taller->anadirAtendiente("ximenez KK", "calle testes");
+
+                            taller->printListEmpleados(MECANICO);
+                            taller->printListElements(ATEMDIENTE);
+
                             break;
                         }
                         case 9: {
@@ -120,7 +142,8 @@ int main() {
         }else
             autorized = userAutenticationAndRedirect();
     }
-delete taller;
+    */
+    delete taller;
     return 0;
 }
 
@@ -204,7 +227,7 @@ void programRoutes(string nameTaller, TallerClass *tallerObject) {
 
             switch (caso) {
                 case 1:{ //
-                    tallerObject->printListEmpleados();
+                    tallerObject->printListElements(ATEMDIENTE);
                 }
                 case 2:{
 

@@ -5,8 +5,8 @@
 #include "Empleado.h"
 
 Empleado::Empleado(int id, const string &nombre, const string &setor) : id(id), nombre(nombre), setor(setor) {}
-Empleado::~Empleado() {
 
+Empleado::~Empleado() {
 }
 
 int Empleado::getId() const {
@@ -29,6 +29,15 @@ const string &Empleado::getSetor() const {
 void Empleado::setSetor(const string &setor) {
     Empleado::setor = setor;
 }
+
+ostream &operator<<(ostream &os, const Empleado &empleado) {
+    os << "id: " << empleado.id << " nombre: " << empleado.nombre << " setor: " << empleado.setor;
+    return os;
+}
+
+
+
+
 
 
 

@@ -13,32 +13,46 @@
 #include "../clientes/Cliente.h"
 #include "../servicio/Servicios.h"
 #include "../vehiculo/Vehiculo.h"
+#include "../UniqueId.h"
+
+
+#define MECANICO 2
+#define ATEMDIENTE 3
+#define CLIENTES 4
 
 using namespace std;
 
 class TallerClass {
 private:
-    static int quantityEmpleados;
+    static int quantityMecanicos;
+    static int quantityAtendientes;
     static int quantityClientes;
     static int quantityServicios;
     static int quantityVehiculos;
 
-    list<pair<int, Empleado*>> empleadosList;
+    list<pair<int, Mecanico*>> mecanicoList;
+    list<pair<int, Atendiente*>> atendienteList;
     list<pair<int, Cliente*>> clientesList;
     list<pair<int, Servicios*>> serviciosList;
     list<pair<int, Vehiculo*>> vehiculosList;
+
 
 public:
 
     TallerClass();
 
-    void anadirEmpleado(Empleado* empleado);
-    void anadirMecanico(Mecanico* empleado); //Ponteiros genéricos.
-    void anadirAtendiente(Atendiente* empleado);
-    void printListEmpleados();
+    virtual ~TallerClass();
 
-    static int getQuantityEmpleados();
-    static void setQuantityEmpleados(int quantityEmpleados);
+    void anadirAtendiente(const string &nombre="", const string &setor="");
+    void anadirMecanico(const string &nombre="", const string &setor="", const string &funcion="");
+    void anadirCliente(const string &nombre, const string &telefono, string modelo, float kilometraje,
+                       string placa);
+
+
+    void printListElements(int typeList);
+
+    static int getQuantityEmpleados(int typeEmpleado);
+    static void setQuantityEmpleados(int quantityEmpleados, int typeEmpleado);
     static int getQuantityClientes();
     static void setQuantityClientes(int quantityClientes);
     static int getQuantityServicios();
