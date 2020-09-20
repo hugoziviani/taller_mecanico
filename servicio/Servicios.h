@@ -6,6 +6,7 @@
 #define TALLER_MECANICO_SERVICIOS_H
 
 #include "../empleado/Empleado.h"
+#include "../clientes/Cliente.h"
 #include "./ItemServicio.h"
 #include <string>
 #include <list>
@@ -25,12 +26,18 @@ class Servicios {
 private:
     int id;
     Empleado *responsable;  //fazer cast para atendente ou mecanico
-    int status = PENDIENTE;
+    Cliente *cliente;
+    int status;
     float precioTotal;
     int tipo;
     list<pair<int, ItemServicio*>> serviciosList;
 
 public:
+
+
+    Servicios(int id, Empleado *responsable = new Empleado(), Cliente *cliente = new Cliente(), int status=PENDIENTE, float precioTotal=0.0, int tipo=PRESSUPUESTO,
+              const list<pair<int, ItemServicio *>> &serviciosList={});
+
     int getId() const;
     void setId(int id);
 

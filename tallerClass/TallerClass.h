@@ -19,6 +19,8 @@
 #define MECANICO 2
 #define ATEMDIENTE 3
 #define CLIENTES 4
+#define ORDENES_DE_SERVICIO 5
+
 
 using namespace std;
 
@@ -47,6 +49,8 @@ public:
     void anadirMecanico(const string &nombre="", const string &setor="", const string &funcion="");
     void anadirCliente(const string &nombre, const string &telefono, string modelo, float kilometraje,
                        string placa);
+
+    void crearOrdenServicio(Empleado *responsable= new Empleado(), Cliente *cliente = new Cliente(), int tipo=PRESSUPUESTO, const list<pair<int, ItemServicio *>> &serviciosList = {});
 
 
     void printListElements(int typeList);

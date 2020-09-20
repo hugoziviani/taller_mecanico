@@ -21,7 +21,7 @@ private:
     float precio;
 
 public:
-    ItemServicio(int id, const string &descripcion, bool finalizado, float precio);
+    ItemServicio(int id=0, const string &descripcion="", bool finalizado=false, float precio=0.0);
 
     virtual ~ItemServicio();
 

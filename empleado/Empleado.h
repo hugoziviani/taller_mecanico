@@ -17,7 +17,7 @@ private:
     string nombre;
     string setor;
 public:
-    Empleado(int id, const string &nombre, const string &setor);
+    Empleado(int id=0, const string &nombre="", const string &setor="");
 
 
     virtual ~Empleado();

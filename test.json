@@ -1,12 +1,19 @@
 {
-  "id" : 99,
-  "nombre" : "JC",
-  "telefono" : "3344-444",
-  "vehicle" :
+  "id" : "1",
+  "responsable" : "id: 0 nombre:  setor: ",
+  "cliente" :
   {
-    "id": "0",
-    "modelo": "",
-    "kilometraje": "0",
-    "placa": ""
-  }
+    "id" : "0",
+    "nombre" : "",
+    "telefono" : "",
+    "vehicle" :
+    {
+      "id": "0",
+      "modelo": "",
+      "kilometraje": "0",
+      "placa": ""
+    }
+  }",
+  "precioTotal" : "0",
+  "tipo" : "0",
 }

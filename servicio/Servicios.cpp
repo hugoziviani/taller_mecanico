@@ -4,6 +4,13 @@
 
 #include "Servicios.h"
 
+
+Servicios::Servicios(int id, Empleado *responsable, Cliente *cliente, int status, float precioTotal, int tipo,
+                     const list<pair<int, ItemServicio *>> &serviciosList) : id(id), responsable(responsable),
+                                                                             cliente(cliente), status(status),
+                                                                             precioTotal(precioTotal), tipo(tipo),
+                                                                             serviciosList(serviciosList) {}
+
 int Servicios::getId() const {
     return id;
 }
@@ -50,7 +57,8 @@ ostream &operator<<(ostream &os, const Servicios &servicios) {
     os
             << "\n{"
             << "\n\"id\" : \"" << servicios.id <<"\","
-            << "\n\"responsable\" : \"" << servicios.responsable<<"\","
+            << "\n\"responsable\" : \"" << *servicios.responsable<<"\","
+            << "\n\"cliente\" : " << *servicios.cliente<<"\","
             << "\n\"precioTotal\" : \"" << servicios.precioTotal <<"\","
             << "\n\"tipo\" : \"" << servicios.tipo <<"\","
             //<< "\n\"serviciosList\" : \"" << servicios.serviciosList <<"\"," TODO adaptar pra imprimir a lista
@@ -58,5 +66,3 @@ ostream &operator<<(ostream &os, const Servicios &servicios) {
             << "\n}";
     return os;
 }
-
-

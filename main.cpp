@@ -14,16 +14,10 @@ int main() {
     int autorized, option;
 
     TallerClass *taller = new TallerClass();
+    taller->crearOrdenServicio();
+    taller->crearOrdenServicio();
+    taller->printListElements(ORDENES_DE_SERVICIO);
 
-    taller->anadirAtendiente("juan garcia", "importados");
-    taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
-    taller->anadirAtendiente("ximenez KK", "calle testes");
-
-    taller->anadirCliente("Ricochete", "22-2.333333","kazin", 0.0, "EQK-9999");
-
-    //taller->printListElements(MECANICO);
-    //taller->printListElements(ATEMDIENTE);
-    taller->printListElements(CLIENTES);
 
     /*
     autorized = userAutenticationAndRedirect();
@@ -121,6 +115,15 @@ int main() {
                         case 2: {
                             cout << "Editar Servicios" << endl;
                             break;
+                        }
+                        case 3: {
+
+                        }
+                        case 4: {
+                            cout << "Crear nuevo cliente" << endl;
+                            taller->anadirCliente("Ricochete", "22-2.333333","kazin", 0.0, "EQK-9999");
+                            taller->printListElements(CLIENTES);
+
                         }
                         case 9: {
                             cout << "\nSaliendo..." << endl;
