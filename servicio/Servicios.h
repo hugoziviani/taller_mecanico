@@ -26,19 +26,18 @@ class Servicios {
 
 private:
     int id;
-    Empleado *responsable;  //fazer cast para atendente ou mecanico
+    Empleado *responsable;
     Cliente *cliente;
     int status;
     float precioTotal;
     int tipo;
     list<pair<int, ItemServicio*>> serviciosList;
-    list<pair<int, ItemServicio*>>::iterator it;
 
 public:
-
-
-    Servicios(int id, Empleado *responsable = nullptr, Cliente *cliente = new Cliente(), int status=PENDIENTE, float precioTotal=0.0, int tipo=PRESSUPUESTO,
+    Servicios(int id=0, Empleado *responsable = nullptr, Cliente *cliente = nullptr, int status=PENDIENTE, float precioTotal=0.0, int tipo=PRESSUPUESTO,
               const list<pair<int, ItemServicio *>> &serviciosList={});
+
+    virtual ~Servicios();
 
     int getId() const;
     void setId(int id);
@@ -57,10 +56,13 @@ public:
 
     const list<pair<int, ItemServicio *>> &getServiciosList() const;
 
+    Cliente *getCliente() const;
+
+    void setCliente(Cliente *cliente);
 
     void insertItemOnList(ItemServicio *itemServicio);
 
-
+    void salida(ostream &os) const;
     friend ostream &operator<<(ostream &os, const Servicios &servicios);
 };
 

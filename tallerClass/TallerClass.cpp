@@ -6,8 +6,19 @@ TallerClass::TallerClass() {
 }
 TallerClass::~TallerClass() {
     if(!TallerClass::empleadosList.empty()){
-        for (auto& x: TallerClass::empleadosList)
+        for (auto& x: TallerClass::empleadosList){
             delete x.second;
+        }
+    }
+    if(!TallerClass::clientesList.empty()){
+        for (auto& x: TallerClass::clientesList){
+            delete x.second;
+        }
+    }
+    if(!TallerClass::serviciosList.empty()){
+        for (auto& x: TallerClass::serviciosList){
+            delete x.second;
+        }
     }
 }
 
@@ -24,11 +35,10 @@ void TallerClass::anadirMecanico(const string &nombre, const string &setor, cons
     TallerClass::setQuantityEmpleados(TallerClass::getQuantityEmpleados(MECANICO) + 1, MECANICO);
 }
 void TallerClass::anadirCliente(const string &nombre, const string &telefono, string modelo, float kilometraje, string placa) {
-    Vehiculo *v = new Vehiculo(UniqueId().id, modelo, kilometraje, placa);
-    Cliente *c = new Cliente(UniqueId().id, nombre, telefono);
-    c->anadirVehiculo(v);
-    c->anadirVehiculo(v);
-    TallerClass::clientesList.emplace_front(UniqueId().id, c);
+    auto *vehiculo = new Vehiculo(UniqueId().id, modelo, kilometraje, placa);
+    auto *cliente = new Cliente(UniqueId().id, nombre, telefono);
+    cliente->anadirVehiculo(vehiculo);
+    TallerClass::clientesList.emplace_front(UniqueId().id, cliente);
     TallerClass::setQuantityClientes(TallerClass::getQuantityClientes()+ 1);
 }
 
@@ -37,7 +47,6 @@ void TallerClass::crearOrdenServicio(Empleado *responsable, Cliente *cliente, in
     TallerClass::serviciosList.emplace_front(UniqueId().id, s);
     TallerClass::setQuantityClientes(TallerClass::getQuantityClientes()+ 1);
 }
-
 void TallerClass::adicionarItemServicioEnOrden(int idOrdenServicio, const char *descripcion, float precio) {
     auto * is = new ItemServicio(UniqueId().id, descripcion, false, precio);
     for (auto& x: TallerClass::serviciosList){
@@ -48,25 +57,28 @@ void TallerClass::adicionarItemServicioEnOrden(int idOrdenServicio, const char *
     }
     //TODO desalocar memória
 }
-
 void TallerClass::printListElements(int typeList) {
-    if (typeList == CLIENTES){
+    if (typeList == CLIENTES and !TallerClass::clientesList.empty()){
         for (auto& x: TallerClass::clientesList)
-            cout << "{" << x.first << "," << *(x.second) << "\n";
+            cout    << "{\n"
+                    << R"( "clientesListId" : ")" << x.first << "\",\n"
+                    << R"( "clientes" : )" << *(x.second) << "\n}";
+
     }
-    if (typeList == ORDENES_DE_SERVICIO){
+    if (typeList == ORDENES_DE_SERVICIO and !TallerClass::serviciosList.empty()){
         for (auto& x: TallerClass::serviciosList)
-            cout    << "{ \"ordenServiciosId\" : " << x.first << ",\n"
-                    << "ordenes\" : " << *(x.second) << "\n}";
+            cout    << "{\n"
+                    << R"("ordenServiciosId" : ")" << x.first << "\",\n"
+                    << R"( "ordenes" : )" << *(x.second) << "\n}";
     }
-    if (typeList == EMPLEADOS){
+    if (typeList == EMPLEADOS and !TallerClass::empleadosList.empty()){
         for (auto it = TallerClass::empleadosList.begin(); it != TallerClass::empleadosList.end(); it++) {
             if (!((it) == TallerClass::empleadosList.end()) and ((it) != TallerClass::empleadosList.begin())){
                 cout <<",\n";
             }
-            cout <<"{\n"
-                << R"( "empleadosListId" : ")" << (*it).first << ",\n"
-                << R"( "empleados" : ")"<< *(*it).second << "\n}";
+            cout    <<"{\n"
+                    << R"( "empleadosListId" : ")" << (*it).first << ",\n"
+                    << R"( "empleados" : ")"<< *(*it).second << "\n}";
         }
     }
 }

@@ -37,6 +37,7 @@ public:
     float getPrecio() const;
     void setPrecio(float precio);
 
+    void salida(ostream &os) const;
     friend ostream &operator<<(ostream &os, const ItemServicio &servicio);
 
     friend class Servicio;

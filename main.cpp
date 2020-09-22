@@ -14,8 +14,10 @@ int main() {
     int autorized, option;
 
     TallerClass *taller = new TallerClass();
-    taller->crearOrdenServicio();
-    taller->crearOrdenServicio();
+    Mecanico *m = new Mecanico(0, "guile", "oficina", "testador de motor", false);
+    Cliente *c = new Cliente(1, "fila duma", "99.32220-33");
+    taller->crearOrdenServicio(m, c, PRESSUPUESTO,{});
+    taller->crearOrdenServicio(m);
 
     taller->anadirCliente("juan garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
 
@@ -23,11 +25,11 @@ int main() {
     taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
 
     taller->adicionarItemServicioEnOrden(4,"cartos", 99.3);
-    taller->adicionarItemServicioEnOrden(4,"cartoshahahahaha", 99.5);
+    taller->adicionarItemServicioEnOrden(2,"cartoshahahahaha", 99.5);
 
     taller->printListElements(CLIENTES);
 
-    //taller->printListElements(ORDENES_DE_SERVICIO);
+    taller->printListElements(ORDENES_DE_SERVICIO);
 
 
     /*

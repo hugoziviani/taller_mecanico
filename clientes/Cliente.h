@@ -17,7 +17,9 @@ class Cliente{
     string telefono;
     list<Vehiculo*> vehiculosList;
 public:
-    Cliente(int id= 0, const string &nombre= "", const string &telefono= "");
+
+
+    Cliente(int id= 0, const string &nombre= "", const string &telefono="", const list<Vehiculo *> &vehiculosList={});
     virtual ~Cliente();
 
     void anadirVehiculo(Vehiculo *vehiculo = new Vehiculo());

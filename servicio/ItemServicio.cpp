@@ -1,7 +1,3 @@
-//
-// Created by Hugo Ziviani on 9/1/20.
-//
-
 #include "ItemServicio.h"
 
 ItemServicio::ItemServicio(int id, const string &descripcion, bool finalizado, float precio) : id(id),
@@ -41,13 +37,17 @@ void ItemServicio::setPrecio(float precio) {
     }
 }
 
-ostream &operator<<(ostream &os, const ItemServicio &servicio) {
-    os
-            << "\n{"
-            << "\n\"id\" : \"" << servicio.id <<"\","
-            << "\n\"descripcion\" : \"" << servicio.descripcion<<"\","
-            << "\n\"finalizado\" : \"" << servicio.finalizado <<"\""
-            << "\n}";
-    return os;
+
+
+void ItemServicio::salida(ostream &os) const {
+    os  <<"{"
+        << R"( "itemServicioId" : ")" << ItemServicio::getId() <<"\","
+        << R"( "descripcion" : ")" << ItemServicio::getDescripcion() <<"\","
+        << R"( "finalizado" : ")" << ItemServicio::isFinalizado() <<"\""
+        <<"} ";
 }
 
+ostream &operator<<(ostream &os, const ItemServicio &servicio) {
+    servicio.salida(os);
+    return os;
+}

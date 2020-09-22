@@ -1,15 +1,22 @@
-//
-// Created by Hugo Ziviani on 8/26/20.
-//
-
 #include "Servicios.h"
-
 
 Servicios::Servicios(int id, Empleado *responsable, Cliente *cliente, int status, float precioTotal, int tipo,
                      const list<pair<int, ItemServicio *>> &serviciosList) : id(id), responsable(responsable),
                                                                              cliente(cliente), status(status),
                                                                              precioTotal(precioTotal), tipo(tipo),
                                                                              serviciosList(serviciosList) {}
+
+Servicios::~Servicios() {
+    if(!Servicios::serviciosList.empty()){
+        for (auto& x: Servicios::serviciosList){
+            delete x.second;
+        }
+    }
+}
+
+void Servicios::insertItemOnList(ItemServicio *itemServicio){
+    Servicios::serviciosList.push_front(make_pair(serviciosList.size(), itemServicio));
+}
 
 int Servicios::getId() const {
     return id;
@@ -50,26 +57,36 @@ const list<pair<int, ItemServicio *>> &Servicios::getServiciosList() const {
     return serviciosList;
 }
 
+Cliente *Servicios::getCliente() const {
+    return cliente;
+}
 
-void Servicios::insertItemOnList(ItemServicio *itemServicio){
-    Servicios::serviciosList.push_front(make_pair(serviciosList.size(), itemServicio));
+void Servicios::setCliente(Cliente *cliente) {
+    Servicios::cliente = cliente;
+}
+
+
+void Servicios::salida(ostream &os) const {
+    os  <<"{"
+        << R"( "serviciosId" : ")" << Servicios::getId() <<"\","
+        << R"( "precioTotal" : ")" << Servicios::getPrecioTotal() <<"\","
+        << R"( "tipo" : ")" << Servicios::getTipo() <<"\","
+        << R"( "cliente" : )" << *Servicios::getCliente() <<"\","
+        << R"( "responsable" : )" << *Servicios::getResponsable() <<"\","
+        << R"( "serviciosList" : )";
+        for (auto it = Servicios::serviciosList.begin(); it != Servicios::serviciosList.end(); it++) {
+            if (!((it) == Servicios::serviciosList.end()) and ((it) != Servicios::serviciosList.begin())) {
+                cout << ",\n";
+            }
+            os<<(*it->second);
+        }
+    os <<"} ";
 }
 
 ostream &operator<<(ostream &os, const Servicios &servicios) {
-
-    os
-        << "\n{"
-        << "\n\"serviciosId\" : \"" << servicios.id <<"\","
-        << "\n\"responsable\" : \"" << *servicios.responsable<<"\","
-        << "\n\"cliente\" : " << *servicios.cliente<<","
-        << "\n\"precioTotal\" : \"" << servicios.precioTotal <<"\","
-        << "\n\"tipo\" : \"" << servicios.tipo <<"\","
-        << "\n\"serviciosList\" : ";
-        for (auto& x: servicios.serviciosList){
-            os  << *x.second
-                << ",";
-        }
-        os << "\n}";
-
+    servicios.salida(os);
     return os;
 }
+
+
+

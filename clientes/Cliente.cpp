@@ -1,15 +1,13 @@
-//
-// Created by Hugo Ziviani on 8/26/20.
-//
-
 #include "Cliente.h"
 
 
 
-
 Cliente::~Cliente() {
-    //Desalocar o veículo, por uma função da classe de Vehiculo TODO
-
+    if(!Cliente::vehiculosList.empty()){
+        for (auto& x: Cliente::vehiculosList){
+            delete x;
+        }
+    }
 }
 
 int Cliente::getId() const {
@@ -39,8 +37,7 @@ void Cliente::salida(ostream &os) const {
         << R"( "nombre" : ")" << Cliente::getNombre() <<"\","
         << R"( "telefono" : ")" << Cliente::getTelefono() <<"\","
         << R"( "vehicle" : )";
-
-    for (auto it = Cliente::vehiculosList.begin(); it != Cliente::vehiculosList.end(); it++) {
+        for (auto it = Cliente::vehiculosList.begin(); it != Cliente::vehiculosList.end(); it++) {
         if (!((it) == Cliente::vehiculosList.end()) and ((it) != Cliente::vehiculosList.begin())) {
             cout << ",\n";
         }
@@ -56,9 +53,13 @@ ostream &operator<<(ostream &os, const Cliente &cliente) {
 }
 
 
-Cliente::Cliente(int id, const string &nombre, const string &telefono)
-        : id(id), nombre(nombre), telefono(telefono){}
-
 void Cliente::anadirVehiculo(Vehiculo *vehiculo) {
     Cliente::vehiculosList.push_front(vehiculo);
 }
+
+Cliente::Cliente(int id, const string &nombre, const string &telefono, const list<Vehiculo *> &vehiculosList) : id(id),
+                                                                                                                nombre(nombre),
+                                                                                                                telefono(
+                                                                                                                        telefono),
+                                                                                                                vehiculosList(
+                                                                                                                        vehiculosList) {}
