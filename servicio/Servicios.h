@@ -34,8 +34,7 @@ private:
     list<pair<int, ItemServicio*>> serviciosList;
 
 public:
-    Servicios(int id=0, Empleado *responsable = nullptr, Cliente *cliente = nullptr, int status=PENDIENTE, float precioTotal=0.0, int tipo=PRESSUPUESTO,
-              const list<pair<int, ItemServicio *>> &serviciosList={});
+    Servicios(int id=0, Empleado *responsable = nullptr, Cliente *cliente = nullptr, int status=PENDIENTE, float precioTotal=0.0, int tipo=PRESSUPUESTO);
 
     virtual ~Servicios();
 

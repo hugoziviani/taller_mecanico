@@ -49,7 +49,7 @@ public:
                        string placa);
 
 
-    void crearOrdenServicio(Empleado *responsable = nullptr, Cliente *cliente = new Cliente(), int tipo=PRESSUPUESTO, const list<pair<int, ItemServicio *>> &serviciosList = {});
+    void crearOrdenServicio(Empleado *responsable = nullptr, Cliente *cliente = new Cliente(), int tipo = PRESSUPUESTO);
     void adicionarItemServicioEnOrden(int idOrdenServicio, const char *descripcion, float precio);
     void printListElements(int typeList);
 

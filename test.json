@@ -1,21 +1,54 @@
 [
   {
-    "cliente":7,
+    "ordenServiciosId": "4",
+    "ordenes": {
+      "serviciosId": "3",
+      "precioTotal": "0",
+      "tipo": "0",
+      "cliente": {
+        "clienteId": "0",
+        "nombre": "",
+        "telefono": "",
+        "vehicle":
+      },
+      "responsable": {
+        "idEmpleado": "0",
+        "nombre": "guile",
+        "setor": "oficina",
+        "funcion": "testador de motor",
+        "disponible": "0"
+      },
+      "serviciosList": {
+        "itemServicioId": "12",
+        "descripcion": "cartos",
+        "finalizado": "0"
+      }
+    }
+  },
   {
-    "clienteId": "6",
-    "nombre": "juan garcia",
-    "telefono": "22-22222.222",
-    "vehicle": {
-      "vehiculoId": "5",
-      "modelo": "kazinho",
-      "kilometraje": "933.4",
-      "placa": "EXS-333"
-    },
-  {
-    "vehiculoId": "5",
-    "modelo": "kazinho",
-    "kilometraje": "933.4",
-    "placa": "EXS-333"
-  }
+    "ordenServiciosId": "2",
+    "ordenes": {
+      "serviciosId": "1",
+      "precioTotal": "0",
+      "tipo": "0",
+      "cliente": {
+        "clienteId": "1",
+        "nombre": "fila duma",
+        "telefono": "99.32220-33",
+        "vehicle":
+      },
+      "responsable": {
+        "idEmpleado": "0",
+        "nombre": "guile",
+        "setor": "oficina",
+        "funcion": "testador de motor",
+        "disponible": "0"
+      },
+      "serviciosList": {
+        "itemServicioId": "13",
+        "descripcion": "cartoshahahahaha",
+        "finalizado": "0"
+      }
+    }
   }
 ]

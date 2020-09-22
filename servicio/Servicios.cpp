@@ -1,10 +1,8 @@
 #include "Servicios.h"
 
-Servicios::Servicios(int id, Empleado *responsable, Cliente *cliente, int status, float precioTotal, int tipo,
-                     const list<pair<int, ItemServicio *>> &serviciosList) : id(id), responsable(responsable),
+Servicios::Servicios(int id, Empleado *responsable, Cliente *cliente, int status, float precioTotal, int tipo) : id(id), responsable(responsable),
                                                                              cliente(cliente), status(status),
-                                                                             precioTotal(precioTotal), tipo(tipo),
-                                                                             serviciosList(serviciosList) {}
+                                                                             precioTotal(precioTotal), tipo(tipo){}
 
 Servicios::~Servicios() {
     if(!Servicios::serviciosList.empty()){
@@ -71,8 +69,8 @@ void Servicios::salida(ostream &os) const {
         << R"( "serviciosId" : ")" << Servicios::getId() <<"\","
         << R"( "precioTotal" : ")" << Servicios::getPrecioTotal() <<"\","
         << R"( "tipo" : ")" << Servicios::getTipo() <<"\","
-        << R"( "cliente" : )" << *Servicios::getCliente() <<"\","
-        << R"( "responsable" : )" << *Servicios::getResponsable() <<"\","
+        << R"( "cliente" : )" << *Servicios::getCliente() <<","
+        << R"( "responsable" : )" << *Servicios::getResponsable() <<","
         << R"( "serviciosList" : )";
         for (auto it = Servicios::serviciosList.begin(); it != Servicios::serviciosList.end(); it++) {
             if (!((it) == Servicios::serviciosList.end()) and ((it) != Servicios::serviciosList.begin())) {

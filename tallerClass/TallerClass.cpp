@@ -42,8 +42,8 @@ void TallerClass::anadirCliente(const string &nombre, const string &telefono, st
     TallerClass::setQuantityClientes(TallerClass::getQuantityClientes()+ 1);
 }
 
-void TallerClass::crearOrdenServicio(Empleado *responsable, Cliente *cliente, int tipo,  const list<pair<int, ItemServicio *>> &serviciosList) {
-    Servicios *s = new Servicios(UniqueId().id, responsable, cliente, PENDIENTE, 0.0, tipo, serviciosList);
+void TallerClass::crearOrdenServicio(Empleado *responsable, Cliente *cliente, int tipo) {
+    Servicios *s = new Servicios(UniqueId().id, responsable, cliente, PENDIENTE, 0.0, tipo);
     TallerClass::serviciosList.emplace_front(UniqueId().id, s);
     TallerClass::setQuantityClientes(TallerClass::getQuantityClientes()+ 1);
 }
@@ -66,10 +66,14 @@ void TallerClass::printListElements(int typeList) {
 
     }
     if (typeList == ORDENES_DE_SERVICIO and !TallerClass::serviciosList.empty()){
-        for (auto& x: TallerClass::serviciosList)
-            cout    << "{\n"
-                    << R"("ordenServiciosId" : ")" << x.first << "\",\n"
-                    << R"( "ordenes" : )" << *(x.second) << "\n}";
+        for (auto it = TallerClass::serviciosList.begin(); it != TallerClass::serviciosList.end(); it++) {
+            if (!((it) == TallerClass::serviciosList.end()) and ((it) != TallerClass::serviciosList.begin())) {
+                cout << ",\n";
+            }
+            cout << "{\n"
+                 << R"("ordenServiciosId" : ")" << (*it).first << "\",\n"
+                 << R"( "ordenes" : )" << *((*it).second) << "\n}";
+        }
     }
     if (typeList == EMPLEADOS and !TallerClass::empleadosList.empty()){
         for (auto it = TallerClass::empleadosList.begin(); it != TallerClass::empleadosList.end(); it++) {
