@@ -9,7 +9,7 @@
         "clienteId": "0",
         "nombre": "",
         "telefono": "",
-        "vehicle":
+        "vehicles": {}
       },
       "responsable": {
         "idEmpleado": "0",
@@ -35,7 +35,12 @@
         "clienteId": "1",
         "nombre": "fila duma",
         "telefono": "99.32220-33",
-        "vehicle":
+        "vehicles": {
+          "vehiculoId": "99",
+          "modelo": "OIaaaa",
+          "kilometraje": "22.3",
+          "placa": "DDD-00"
+        }
       },
       "responsable": {
         "idEmpleado": "0",

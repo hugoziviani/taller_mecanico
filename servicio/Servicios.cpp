@@ -1,8 +1,9 @@
 #include "Servicios.h"
 
-Servicios::Servicios(int id, Empleado *responsable, Cliente *cliente, int status, float precioTotal, int tipo) : id(id), responsable(responsable),
-                                                                             cliente(cliente), status(status),
-                                                                             precioTotal(precioTotal), tipo(tipo){}
+Servicios::Servicios(int id, Empleado *responsable, Cliente *cliente, int status, float precioTotal, int tipo) :
+    id(id), responsable(responsable),
+    cliente(cliente), status(status),
+    precioTotal(precioTotal), tipo(tipo){}
 
 Servicios::~Servicios() {
     if(!Servicios::serviciosList.empty()){
@@ -12,6 +13,14 @@ Servicios::~Servicios() {
     }
 }
 
+float Servicios::calculatePrecioTotal() {
+    auto precio = 0;
+    for( auto &s : Servicios::serviciosList){
+        precio+= s.second->getPrecio();
+    }
+    Servicios::setPrecioTotal(precio);
+    return precioTotal;
+}
 void Servicios::insertItemOnList(ItemServicio *itemServicio){
     Servicios::serviciosList.push_front(make_pair(serviciosList.size(), itemServicio));
 }
@@ -85,6 +94,3 @@ ostream &operator<<(ostream &os, const Servicios &servicios) {
     servicios.salida(os);
     return os;
 }
-
-
-

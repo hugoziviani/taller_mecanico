@@ -1,6 +1,6 @@
 #include "main.h"
 #include "tallerClass/TallerClass.h"
-#include "UniqueId.h"
+
 
 int TallerClass :: quantityAtendientes = 0;
 int TallerClass :: quantityMecanicos = 0;
@@ -14,13 +14,17 @@ int main() {
     int autorized, option;
 
     TallerClass *taller = new TallerClass();
+
     Mecanico *m = new Mecanico(0, "guile", "oficina", "testador de motor", false);
     Cliente *c = new Cliente(1, "fila duma", "99.32220-33");
     c->anadirVehiculo(new Vehiculo(99,"OIaaaa",22.3,"DDD-00"));
     taller->crearOrdenServicio(m, c, PRESSUPUESTO);
     taller->crearOrdenServicio(m);
 
+    taller->anadirCliente("jose garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
     taller->anadirCliente("juan garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
+    taller->anadirCliente("juan felizx","22-22222.222", "kazinho", 933.4, "EXS-333");
+    taller->anadirCliente("feliiii garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
 
     taller->anadirAtendiente("juan garcia", "importados");
     taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
@@ -28,138 +32,144 @@ int main() {
     taller->adicionarItemServicioEnOrden(4,"cartos", 99.3);
     taller->adicionarItemServicioEnOrden(2,"cartoshahahahaha", 99.5);
 
-    //taller->printListElements(CLIENTES);
+    auto r = taller->buscaPersona(CLIENTES, "juan");
 
-    taller->printListElements(ORDENES_DE_SERVICIO);
+    for(auto & it : r){
+        cout<<"ID: "<<it.first;
+        cout<<" Nombre: "<<it.second<<endl;
 
-
-    /*
-    autorized = userAutenticationAndRedirect();
-    if (autorized == -1) return 0;
-    while (autorized != -1) {
-        switch (autorized) {
-            case 1: {
-                option = 0;
-                while (option != -1) {
-                    option = getOption("Adminstración", &optionsAdm);
-                    switch (option) {
-                        case 0: {
-                            cout << "\nCambiando de user" << endl;
-                            option = -1;
-                            break;
-                        }
-                        case 1: {
-                            cout << "Editar Ventas" << endl;
-                            break;
-                        }
-                        case 2: {
-                            cout << "Editar Servicios" << endl;
-                            break;
-                        }
-                        case 3: {
-                            cout << "Añadir Trabajador" << endl;
-
-                            taller->anadirAtendiente("juan garcia", "importados");
-                            taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
-                            taller->anadirAtendiente("ximenez KK", "calle testes");
-
-                            taller->printListEmpleados(MECANICO);
-                            taller->printListElements(ATEMDIENTE);
-
-                            break;
-                        }
-                        case 9: {
-                            cout << "\nSaliendo..." << endl;
-                            option = -1;
-                            autorized=9;
-                            break;
-                        }
-                        default: {
-                            cout <<"Opção inválida" << endl;
-                        }
-                    }
-                }
-                break;
-            }
-            case 2: {
-                option = 0;
-                while (option != -1) {
-                    option = getOption("Mecánico", &optionsMecanico);
-                    switch (option) {
-                        case 0: {
-                            cout << "\nCambiando de user" << endl;
-                            option = -1;
-                            break;
-                        }
-                        case 1: {
-                            cout << "Visualisar Ordenes de Servicio Liberadas" << endl;
-                            break;
-                        }
-                        case 2: {
-                            cout << "Tomar la orden de servicio" << endl;
-                            break;
-                        }
-                        case 9: {
-                            cout << "\nSaliendo..." << endl;
-                            option = -1;
-                            autorized=9;
-                            break;
-                        }
-                        default: {
-                            cout << "Opção inválida" << endl;
-                        }
-                    }
-                }
-                break;
-            }
-            case 3: {
-                option=0;
-                while (option != -1) {
-                    option = getOption("Atendiente", &optionsAtendiente);
-                    switch (option) {
-                        case 0: {
-                            cout << "\nCambiando de user" << endl;
-                            option = -1;
-                            break;
-                        }
-                        case 1: {
-                            cout << "Crear Orden de Servicio" << endl;
-                            break;
-                        }
-                        case 2: {
-                            cout << "Editar Servicios" << endl;
-                            break;
-                        }
-                        case 3: {
-
-                        }
-                        case 4: {
-                            cout << "Crear nuevo cliente" << endl;
-                            taller->anadirCliente("Ricochete", "22-2.333333","kazin", 0.0, "EQK-9999");
-                            taller->printListElements(CLIENTES);
-
-                        }
-                        case 9: {
-                            cout << "\nSaliendo..." << endl;
-                            option = -1;
-                            autorized=9;
-                            break;
-                        }
-                        default: {
-                            cout << "Opção inválida" << endl;
-                            break;
-                        }
-                    }
-                }
-                break;
-            }
-        }
-        if(autorized==9){
-            return 0;
-        }else
-            autorized = userAutenticationAndRedirect();
     }
-    */
+
+//    taller->printListElements(CLIENTES);
+    //taller->printListElements(ORDENES_DE_SERVICIO);
+    // TODO PARA TESTAR, apagar depois
+
+//    autorized = userAutenticationAndRedirect();
+//    if (autorized == -1) return 0;
+//    while (autorized != -1) {
+//        switch (autorized) {
+//            case 1: {
+//                option = 0;
+//                while (option != -1) {
+//                    option = getOption("Adminstración", &optionsAdm);
+//                    switch (option) {
+//                        case 0: {
+//                            cout << "\nCambiando de user" << endl;
+//                            option = -1;
+//                            break;
+//                        }
+//                        case 1: {
+//                            cout << "Editar Ventas" << endl;
+//                            break;
+//                        }
+//                        case 2: {
+//                            cout << "Editar Servicios" << endl;
+//                            break;
+//                        }
+//                        case 3: {
+//                            cout << "Añadir Trabajador" << endl;
+//
+//                            taller->anadirAtendiente("juan garcia", "importados");
+//                            taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
+//                            taller->anadirAtendiente("ximenez KK", "calle testes");
+//
+//                            taller->printListEmpleados(MECANICO);
+//                            taller->printListElements(ATEMDIENTE);
+//
+//                            break;
+//                        }
+//                        case 9: {
+//                            cout << "\nSaliendo..." << endl;
+//                            option = -1;
+//                            autorized=9;
+//                            break;
+//                        }
+//                        default: {
+//                            cout <<"Opção inválida" << endl;
+//                        }
+//                    }
+//                }
+//                break;
+//            }
+//            case 2: {
+//                option = 0;
+//                while (option != -1) {
+//                    option = getOption("Mecánico", &optionsMecanico);
+//                    switch (option) {
+//                        case 0: {
+//                            cout << "\nCambiando de user" << endl;
+//                            option = -1;
+//                            break;
+//                        }
+//                        case 1: {
+//                            cout << "Visualisar Ordenes de Servicio Liberadas" << endl;
+//                            break;
+//                        }
+//                        case 2: {
+//                            cout << "Tomar la orden de servicio" << endl;
+//                            break;
+//                        }
+//                        case 9: {
+//                            cout << "\nSaliendo..." << endl;
+//                            option = -1;
+//                            autorized=9;
+//                            break;
+//                        }
+//                        default: {
+//                            cout << "Opção inválida" << endl;
+//                        }
+//                    }
+//                }
+//                break;
+//            }
+//            case 3: {
+//                option=0;
+//                while (option != -1) {
+//                    option = getOption("Atendiente", &optionsAtendiente);
+//                    switch (option) {
+//                        case 0: {
+//                            cout << "\nCambiando de user" << endl;
+//                            option = -1;
+//                            break;
+//                        }
+//                        case 1: {
+//                            cout << "Crear Orden de Servicio" << endl;
+//                            break;
+//                        }
+//                        case 2: {
+//                            cout << "Editar Servicios" << endl;
+//                            break;
+//                        }
+//                        case 3: {
+//
+//                        }
+//                        case 4: {
+//                            cout << "Crear nuevo cliente" << endl;
+//                            taller->anadirCliente("Ricochete", "22-2.333333","kazin", 0.0, "EQK-9999");
+//                            taller->printListElements(CLIENTES);
+//
+//                        }
+//                        case 9: {
+//                            cout << "\nSaliendo..." << endl;
+//                            option = -1;
+//                            autorized=9;
+//                            break;
+//                        }
+//                        default: {
+//                            cout << "Opção inválida" << endl;
+//                            break;
+//                        }
+//                    }
+//                }
+//                break;
+//            }
+//        }
+//        if(autorized==9){
+//            return 0;
+//        }else
+//            autorized = userAutenticationAndRedirect();
+//    }
+
     delete taller;
     return 0;
 }

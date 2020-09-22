@@ -1,6 +1,9 @@
 #include "Empleado.h"
 
-Empleado::Empleado(int id, const string &nombre, const string &setor) : id(id), nombre(nombre), setor(setor) {}
+Empleado::Empleado(int id, const string &nombre, const string &setor) :
+    id(id),
+    nombre(nombre),
+    setor(setor) {}
 
 Empleado::~Empleado() {
 }

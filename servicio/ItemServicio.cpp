@@ -1,9 +1,11 @@
 #include "ItemServicio.h"
 
-ItemServicio::ItemServicio(int id, const string &descripcion, bool finalizado, float precio) : id(id),
-                                                                                               descripcion(descripcion),
-                                                                                               finalizado(finalizado),
-                                                                                               precio(precio) {}
+ItemServicio::ItemServicio(int id, const string &descripcion, bool finalizado, float precio) :
+    id(id),
+    descripcion(descripcion),
+    finalizado(finalizado),
+    precio(precio) {}
+
 ItemServicio::~ItemServicio() {
 }
 

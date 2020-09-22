@@ -4,12 +4,9 @@
 
 #include "Atendiente.h"
 
-Atendiente::Atendiente(int id,
-                       const string &nombre,
-                       const string &setor,
-                       int ventasHechas) :
-                       Empleado(id, nombre,setor), //sempre primeiro e a chamada da CB
-                       ventasHechas(ventasHechas){}
+Atendiente::Atendiente(int id, const string &nombre, const string &setor, int ventasHechas) :
+    Empleado(id, nombre,setor),
+    ventasHechas(ventasHechas){}
 
 int Atendiente::getVentasHechas() const {
     return ventasHechas;

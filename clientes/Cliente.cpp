@@ -1,10 +1,11 @@
 #include "Cliente.h"
 
 
-Cliente::Cliente(int id, const string &nombre, const string &telefono, const list<Vehiculo *> &vehiculosList) : id(id),
-                                                                                                                nombre(nombre),
-                                                                                                                telefono(telefono),
-                                                                                                                vehiculosList(vehiculosList){}
+Cliente::Cliente(int id, const string &nombre, const string &telefono, const list<Vehiculo *> &vehiculosList) :
+    id(id),
+    nombre(nombre),
+    telefono(telefono),
+    vehiculosList(vehiculosList){}
 
 Cliente::~Cliente() {
     if (!Cliente::vehiculosList.empty()) {

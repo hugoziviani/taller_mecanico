@@ -55,15 +55,17 @@ void TallerClass::adicionarItemServicioEnOrden(int idOrdenServicio, const char *
             TallerClass::setQuantityServicios(TallerClass::getQuantityServicios()+1);
         }
     }
-    //TODO desalocar memória
 }
 void TallerClass::printListElements(int typeList) {
     if (typeList == CLIENTES and !TallerClass::clientesList.empty()){
-        for (auto& x: TallerClass::clientesList)
-            cout    << "{\n"
-                    << R"( "clientesListId" : ")" << x.first << "\",\n"
-                    << R"( "clientes" : )" << *(x.second) << "\n}";
-
+        for (auto it = TallerClass::clientesList.begin(); it != TallerClass::clientesList.end(); it++) {
+            if (!((it) == TallerClass::clientesList.end()) and ((it) != TallerClass::clientesList.begin())) {
+                cout << ",\n";
+            }
+            cout << "{\n"
+                 << R"( "clientesListId" : ")" << (*it).first << "\",\n"
+                 << R"( "clientes" : )" << *((*it).second) << "\n}";
+        }
     }
     if (typeList == ORDENES_DE_SERVICIO and !TallerClass::serviciosList.empty()){
         for (auto it = TallerClass::serviciosList.begin(); it != TallerClass::serviciosList.end(); it++) {
@@ -87,6 +89,40 @@ void TallerClass::printListElements(int typeList) {
     }
 }
 
+list<pair<int, string>> TallerClass::buscaPersona(int typeList, const string nombre) {
+    list<pair<int, string>> listReturn;
+    if (typeList == CLIENTES and !TallerClass::clientesList.empty()){
+        for (auto & it : TallerClass::clientesList) {
+            auto nombreRegistrado = (it.second->getNombre());
+            if (nombreRegistrado.find(nombre) != string::npos) {
+                 listReturn.emplace_back(it.second->getId(), it.second->getNombre());
+            }
+
+        }
+    }
+    if (typeList == EMPLEADOS and !TallerClass::empleadosList.empty()){
+        for (auto & it : TallerClass::empleadosList) {
+            auto nombreRegistrado = (it.second->getNombre());
+            if (nombreRegistrado.find(nombre) != string::npos) {
+                listReturn.emplace_back(it.second->getId(), it.second->getNombre());
+            }
+        }
+    }
+    return listReturn;
+}
+list<pair<int, string>> TallerClass::buscaOrdenDeServicio(int typeList, string nombre) {
+    list<pair<int, string>> listReturn;
+    if (typeList == ORDENES_DE_SERVICIO and !TallerClass::serviciosList.empty()){
+        for (auto it = TallerClass::serviciosList.begin(); it != TallerClass::serviciosList.end(); it++) {
+            auto nombreRegistrado = it->second->getCliente()->getNombre();
+            if (nombreRegistrado.find(nombre) != string::npos) {
+                listReturn.emplace_back(it->second->getId(), it->second->getCliente()->getNombre());
+                //TODO adaptar para retornar as OS
+            }
+        }
+    }
+    return listReturn;
+}
 
 int TallerClass::getQuantityEmpleados(int typeEmpleado) {
     if (typeEmpleado == ATEMDIENTE){

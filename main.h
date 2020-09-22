@@ -15,6 +15,7 @@
 #include <vector>
 #include <iostream>
 #include <limits>
+#include "UniqueId.h"
 
 #define N_OPTION 5
 using namespace std;

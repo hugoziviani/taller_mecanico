@@ -4,8 +4,10 @@
 
 #include "Mecanico.h"
 
-Mecanico::Mecanico(int id, const string &nombre, const string &setor, const string &funcion, bool disponible)
-        : Empleado(id, nombre, setor), funcion(funcion), disponible(disponible) {}
+Mecanico::Mecanico(int id, const string &nombre, const string &setor, const string &funcion, bool disponible) :
+    Empleado(id, nombre, setor),
+    funcion(funcion),
+    disponible(disponible) {}
 
 Mecanico::~Mecanico() {}
 

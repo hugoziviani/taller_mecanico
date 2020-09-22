@@ -60,6 +60,7 @@ public:
     void setCliente(Cliente *cliente);
 
     void insertItemOnList(ItemServicio *itemServicio);
+    float calculatePrecioTotal();
 
     void salida(ostream &os) const;
     friend ostream &operator<<(ostream &os, const Servicios &servicios);
