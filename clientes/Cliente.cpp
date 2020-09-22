@@ -5,14 +5,11 @@
 #include "Cliente.h"
 
 
-Cliente::Cliente(int id, const string &nombre, const string &telefono, Vehiculo &vehicle) :
-                 id(id), nombre(nombre),
-                 vehicle(&vehicle),
-                 telefono(telefono) {}
+
 
 Cliente::~Cliente() {
-    //Desalocar o veículo, por uma função da classe de Vehiculo
-    delete this->vehicle;
+    //Desalocar o veículo, por uma função da classe de Vehiculo TODO
+
 }
 
 int Cliente::getId() const {
@@ -29,13 +26,6 @@ void Cliente::setNombre(const string &nombre) {
     Cliente::nombre = nombre;
 }
 
-Vehiculo *Cliente::getVehicle() const {
-    return vehicle;
-}
-void Cliente::setVehicle(Vehiculo *vehicle) {
-    Cliente::vehicle = vehicle;
-}
-
 const string &Cliente::getTelefono() const {
     return telefono;
 }
@@ -43,13 +33,32 @@ void Cliente::setTelefono(const string &telefono) {
     Cliente::telefono = telefono;
 }
 
+void Cliente::salida(ostream &os) const {
+    os  <<"{"
+        << R"( "clienteId" : ")" << Cliente::getId() <<"\","
+        << R"( "nombre" : ")" << Cliente::getNombre() <<"\","
+        << R"( "telefono" : ")" << Cliente::getTelefono() <<"\","
+        << R"( "vehicle" : )";
+
+    for (auto it = Cliente::vehiculosList.begin(); it != Cliente::vehiculosList.end(); it++) {
+        if (!((it) == Cliente::vehiculosList.end()) and ((it) != Cliente::vehiculosList.begin())) {
+            cout << ",\n";
+        }
+        os<<*(*it);
+    }
+    os <<"} ";
+}
+
+
 ostream &operator<<(ostream &os, const Cliente &cliente) {
-    os
-    << "\n{"
-    << "\n\"id\" : \"" << cliente.id <<"\","
-    << "\n\"nombre\" : \"" << cliente.nombre<<"\","
-    << "\n\"telefono\" : \"" << cliente.telefono <<"\","
-    << "\n\"vehicle\" : " << *cliente.vehicle
-    << "\n}";
+    cliente.salida(os);
     return os;
+}
+
+
+Cliente::Cliente(int id, const string &nombre, const string &telefono)
+        : id(id), nombre(nombre), telefono(telefono){}
+
+void Cliente::anadirVehiculo(Vehiculo *vehiculo) {
+    Cliente::vehiculosList.push_front(vehiculo);
 }

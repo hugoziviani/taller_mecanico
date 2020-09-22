@@ -21,6 +21,7 @@
 using namespace std;
 
 
+
 class Servicios {
 
 private:
@@ -31,11 +32,12 @@ private:
     float precioTotal;
     int tipo;
     list<pair<int, ItemServicio*>> serviciosList;
+    list<pair<int, ItemServicio*>>::iterator it;
 
 public:
 
 
-    Servicios(int id, Empleado *responsable = new Empleado(), Cliente *cliente = new Cliente(), int status=PENDIENTE, float precioTotal=0.0, int tipo=PRESSUPUESTO,
+    Servicios(int id, Empleado *responsable = nullptr, Cliente *cliente = new Cliente(), int status=PENDIENTE, float precioTotal=0.0, int tipo=PRESSUPUESTO,
               const list<pair<int, ItemServicio *>> &serviciosList={});
 
     int getId() const;
@@ -54,15 +56,12 @@ public:
     void setTipo(int tipo);
 
     const list<pair<int, ItemServicio *>> &getServiciosList() const;
-    void setServiciosList(const list<pair<int, ItemServicio *>> &serviciosList);
+
+
+    void insertItemOnList(ItemServicio *itemServicio);
 
 
     friend ostream &operator<<(ostream &os, const Servicios &servicios);
-
-    friend ostream &operator<<(ostream &os, const list<pair<int, ItemServicio *>> &serviciosList);
-
-
 };
-
 
 #endif //TALLER_MECANICO_SERVICIOS_H

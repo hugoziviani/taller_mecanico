@@ -14,8 +14,8 @@ Vehiculo::Vehiculo(int id, const string &modelo, float kilometraje, const string
 Vehiculo::~Vehiculo() {
 }
 
-int Vehiculo::getId() {
-    return this->id;
+int Vehiculo::getId() const {
+    return Vehiculo::id;
 }
 void Vehiculo::setId(int id) {
     this->id = id;
@@ -55,21 +55,17 @@ bool operator==(const Vehiculo& vehiculo1, const Vehiculo& vehiculo2){
     return (vehiculo1.getPlaca() == vehiculo2.getPlaca());
 }
 
-void showlist(list<Vehiculo> g){
-    std::list<Vehiculo>::iterator it;
-    for(it = g.begin(); it != g.end(); ++it)
-        cout << '\t' << it->getModelo();
-    cout << '\n';
+void Vehiculo::salida(ostream &os) const {
+    os  <<"{"
+        << R"( "vehiculoId" : ")" << Vehiculo::getId() <<"\","
+        << R"( "modelo" : ")" << Vehiculo::getModelo() <<"\","
+        << R"( "kilometraje" : ")" << Vehiculo::getKilometraje() <<"\","
+        << R"( "placa" : ")" << Vehiculo::getPlaca() <<"\""
+        <<"} ";
 }
 
 ostream &operator<<(ostream &os, const Vehiculo &vehiculo) {
-    os
-    << "\n{"
-    << "\n \"id\": " << "\""<<vehiculo.id<<"\","
-    << "\n \"modelo\": " << "\""<<vehiculo.modelo<<"\","
-    << "\n \"kilometraje\": " << "\""<<vehiculo.kilometraje<<"\","
-    << "\n \"placa\": " << "\""<<vehiculo.placa<<"\""
-    << "\n}";
+    vehiculo.salida(os);
     return os;
 }
 istream &operator>>(istream &is,Vehiculo &vehiculo) {

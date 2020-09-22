@@ -36,7 +36,9 @@ float ItemServicio::getPrecio() const {
     return precio;
 }
 void ItemServicio::setPrecio(float precio) {
-    ItemServicio::precio = precio;
+    if (precio>0){
+        ItemServicio::precio = precio;
+    }
 }
 
 ostream &operator<<(ostream &os, const ItemServicio &servicio) {

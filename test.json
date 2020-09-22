@@ -1,19 +1,21 @@
-{
-  "id" : "1",
-  "responsable" : "id: 0 nombre:  setor: ",
-  "cliente" :
+[
   {
-    "id" : "0",
-    "nombre" : "",
-    "telefono" : "",
-    "vehicle" :
-    {
-      "id": "0",
-      "modelo": "",
-      "kilometraje": "0",
-      "placa": ""
-    }
-  }",
-  "precioTotal" : "0",
-  "tipo" : "0",
-}
+    "cliente":7,
+  {
+    "clienteId": "6",
+    "nombre": "juan garcia",
+    "telefono": "22-22222.222",
+    "vehicle": {
+      "vehiculoId": "5",
+      "modelo": "kazinho",
+      "kilometraje": "933.4",
+      "placa": "EXS-333"
+    },
+  {
+    "vehiculoId": "5",
+    "modelo": "kazinho",
+    "kilometraje": "933.4",
+    "placa": "EXS-333"
+  }
+  }
+]

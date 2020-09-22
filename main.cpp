@@ -6,7 +6,7 @@ int TallerClass :: quantityAtendientes = 0;
 int TallerClass :: quantityMecanicos = 0;
 int TallerClass :: quantityClientes = 0;
 int TallerClass :: quantityServicios = 0;
-int TallerClass :: quantityVehiculos = 0;
+
 
 int UniqueId :: nextID = 0;
 
@@ -16,7 +16,18 @@ int main() {
     TallerClass *taller = new TallerClass();
     taller->crearOrdenServicio();
     taller->crearOrdenServicio();
-    taller->printListElements(ORDENES_DE_SERVICIO);
+
+    taller->anadirCliente("juan garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
+
+    taller->anadirAtendiente("juan garcia", "importados");
+    taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
+
+    taller->adicionarItemServicioEnOrden(4,"cartos", 99.3);
+    taller->adicionarItemServicioEnOrden(4,"cartoshahahahaha", 99.5);
+
+    taller->printListElements(CLIENTES);
+
+    //taller->printListElements(ORDENES_DE_SERVICIO);
 
 
     /*

@@ -49,20 +49,27 @@ void Servicios::setTipo(int tipo) {
 const list<pair<int, ItemServicio *>> &Servicios::getServiciosList() const {
     return serviciosList;
 }
-void Servicios::setServiciosList(const list<pair<int, ItemServicio *>> &serviciosList) {
-    Servicios::serviciosList = serviciosList;
+
+
+void Servicios::insertItemOnList(ItemServicio *itemServicio){
+    Servicios::serviciosList.push_front(make_pair(serviciosList.size(), itemServicio));
 }
 
 ostream &operator<<(ostream &os, const Servicios &servicios) {
-    os
-            << "\n{"
-            << "\n\"id\" : \"" << servicios.id <<"\","
-            << "\n\"responsable\" : \"" << *servicios.responsable<<"\","
-            << "\n\"cliente\" : " << *servicios.cliente<<"\","
-            << "\n\"precioTotal\" : \"" << servicios.precioTotal <<"\","
-            << "\n\"tipo\" : \"" << servicios.tipo <<"\","
-            //<< "\n\"serviciosList\" : \"" << servicios.serviciosList <<"\"," TODO adaptar pra imprimir a lista
 
-            << "\n}";
+    os
+        << "\n{"
+        << "\n\"serviciosId\" : \"" << servicios.id <<"\","
+        << "\n\"responsable\" : \"" << *servicios.responsable<<"\","
+        << "\n\"cliente\" : " << *servicios.cliente<<","
+        << "\n\"precioTotal\" : \"" << servicios.precioTotal <<"\","
+        << "\n\"tipo\" : \"" << servicios.tipo <<"\","
+        << "\n\"serviciosList\" : ";
+        for (auto& x: servicios.serviciosList){
+            os  << *x.second
+                << ",";
+        }
+        os << "\n}";
+
     return os;
 }

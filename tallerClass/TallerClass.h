@@ -15,7 +15,7 @@
 #include "../vehiculo/Vehiculo.h"
 #include "../UniqueId.h"
 
-
+#define EMPLEADOS 1
 #define MECANICO 2
 #define ATEMDIENTE 3
 #define CLIENTES 4
@@ -30,13 +30,11 @@ private:
     static int quantityAtendientes;
     static int quantityClientes;
     static int quantityServicios;
-    static int quantityVehiculos;
 
-    list<pair<int, Mecanico*>> mecanicoList;
-    list<pair<int, Atendiente*>> atendienteList;
+    list<pair<int, Empleado*>> empleadosList;
     list<pair<int, Cliente*>> clientesList;
     list<pair<int, Servicios*>> serviciosList;
-    list<pair<int, Vehiculo*>> vehiculosList;
+
 
 
 public:
@@ -50,9 +48,9 @@ public:
     void anadirCliente(const string &nombre, const string &telefono, string modelo, float kilometraje,
                        string placa);
 
-    void crearOrdenServicio(Empleado *responsable= new Empleado(), Cliente *cliente = new Cliente(), int tipo=PRESSUPUESTO, const list<pair<int, ItemServicio *>> &serviciosList = {});
 
-
+    void crearOrdenServicio(Empleado *responsable = nullptr, Cliente *cliente = new Cliente(), int tipo=PRESSUPUESTO, const list<pair<int, ItemServicio *>> &serviciosList = {});
+    void adicionarItemServicioEnOrden(int idOrdenServicio, const char *descripcion, float precio);
     void printListElements(int typeList);
 
     static int getQuantityEmpleados(int typeEmpleado);
@@ -61,8 +59,7 @@ public:
     static void setQuantityClientes(int quantityClientes);
     static int getQuantityServicios();
     static void setQuantityServicios(int quantityServicios);
-    static int getQuantityVehiculos();
-    static void setQuantityVehiculos(int quantityVehiculos);
+
 
 
 

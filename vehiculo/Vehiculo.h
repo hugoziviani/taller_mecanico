@@ -23,7 +23,7 @@ public:
 
     virtual ~Vehiculo();
 
-    int getId();
+    int getId() const;
     void setId(int id);
 
     const string &getModelo() const;
@@ -37,7 +37,8 @@ public:
 
     Vehiculo& operator=(const Vehiculo&);
     friend bool operator==(const Vehiculo& vehiculo1, const Vehiculo& vehiculo2);
-    friend void showlist(list<Vehiculo>);
+
+    void salida(ostream &os) const;
 
     friend ostream &operator<<(ostream &os, const Vehiculo &vehiculo);
     friend istream &operator>>(istream &is, Vehiculo &vehiculo);

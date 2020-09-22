@@ -24,7 +24,9 @@ public:
     bool isDisponible() const;
     void setDisponible(bool disponible);
 
+    void salida(ostream &) const;
 
+    friend ostream &operator<<(ostream &os, const Mecanico &mecanico);
     /*TODO: -ver OS abertas e autorizadas para pegar uma e fazer
         -cadastrar serviço e peças utilizadas
     */

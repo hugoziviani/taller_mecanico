@@ -16,6 +16,7 @@ public:
     int getVentasHechas() const;
     void setVentasHechas(int ventasHechas);
 
+    void salida(ostream &) const;
     friend ostream &operator<<(ostream &os, const Atendiente &atendiente);
 };
 

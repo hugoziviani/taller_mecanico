@@ -14,11 +14,14 @@ using namespace std;
 class Cliente{
     int id;
     string nombre;
-    Vehiculo *vehicle; //TODO transformar em lista de veiculos
     string telefono;
+    list<Vehiculo*> vehiculosList;
 public:
-    Cliente(int id=0, const string &nombre="", const string &telefono="", Vehiculo &vehicle = *(new Vehiculo()));
+    Cliente(int id= 0, const string &nombre= "", const string &telefono= "");
     virtual ~Cliente();
+
+    void anadirVehiculo(Vehiculo *vehiculo = new Vehiculo());
+
 
     int getId() const;
     void setId(int id);
@@ -26,12 +29,10 @@ public:
     const string &getNombre() const;
     void setNombre(const string &nombre);
 
-    Vehiculo *getVehicle() const;
-    void setVehicle(Vehiculo *vehicle);
-
     const string &getTelefono() const;
     void setTelefono(const string &telefono);
 
+    virtual void salida(ostream&) const;
     friend ostream &operator<<(ostream &os, const Cliente &cliente);
 
 };

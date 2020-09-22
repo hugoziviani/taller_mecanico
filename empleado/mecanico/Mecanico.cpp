@@ -22,3 +22,14 @@ bool Mecanico::isDisponible() const {
 void Mecanico::setDisponible(bool disponible) {
     Mecanico::disponible = disponible;
 }
+
+void Mecanico::salida(ostream &os) const {
+    Empleado::salida(os);
+    os  << R"( "funcion" : ")" << Mecanico::getFuncion() <<"\","
+        << R"( "disponible" : ")" << Mecanico::isDisponible() <<"\"}\n";
+}
+
+ostream &operator<<(ostream &os, const Mecanico &mecanico) {
+    mecanico.salida(os);
+    return os;
+}

@@ -30,8 +30,15 @@ void Empleado::setSetor(const string &setor) {
     Empleado::setor = setor;
 }
 
+
+void Empleado::salida(ostream &os) const {
+    os  <<"{"
+        << R"( "idEmpleado" : ")" << Empleado::getId()<<"\","
+        << R"( "nombre": ")" << Empleado::getNombre()<<"\","
+        << R"( "setor" : ")" << Empleado::getSetor()<<"\",";
+}
 ostream &operator<<(ostream &os, const Empleado &empleado) {
-    os << "id: " << empleado.id << " nombre: " << empleado.nombre << " setor: " << empleado.setor;
+    empleado.salida(os);
     return os;
 }
 

@@ -16,11 +16,13 @@ private:
     int id;
     string nombre;
     string setor;
+
 public:
     Empleado(int id=0, const string &nombre="", const string &setor="");
 
-
     virtual ~Empleado();
+
+    //virtual string getResponsableIdentification();
 
     int getId() const;
     void setId(int id);
@@ -31,10 +33,10 @@ public:
     const string &getSetor() const;
     void setSetor(const string &setor);
 
+
+    virtual void salida(ostream&) const = 0; //virtual puro
     friend ostream &operator<<(ostream &os, const Empleado &empleado);
 
-    time_t getAgregadoEn() const;
-    void setAgregadoEn(time_t agregadoEn);
 
 };
 
