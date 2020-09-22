@@ -64,6 +64,7 @@ public:
 
     void salida(ostream &os) const;
     friend ostream &operator<<(ostream &os, const Servicios &servicios);
+
 };
 
 #endif //TALLER_MECANICO_SERVICIOS_H

@@ -47,8 +47,11 @@ public:
     void anadirMecanico(const string &nombre="", const string &setor="", const string &funcion="");
     void anadirCliente(const string &nombre, const string &telefono, string modelo, float kilometraje, string placa);
 
-    list<pair<int, string>> buscaPersona(int typeList=-1, const string nombre=""); //TODO fazer para clientes e empregados
+    Servicios * buscaOrdenDeServicio(int idOrden);
 
+    Empleado *buscaEmpleado(int idRegistro);
+
+    list<pair<int, string>> buscaPersona(int typeList=-1, const string nombre=""); //TODO fazer para clientes e empregados
     list<pair<int, string>> buscaOrdenDeServicio(int typeList, string ); //TODO adaptar para id ordem ou por cliente
 
     void crearOrdenServicio(Empleado *responsable = nullptr, Cliente *cliente = new Cliente(), int tipo = PRESSUPUESTO);

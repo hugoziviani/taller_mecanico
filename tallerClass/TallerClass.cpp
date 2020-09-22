@@ -110,6 +110,20 @@ list<pair<int, string>> TallerClass::buscaPersona(int typeList, const string nom
     }
     return listReturn;
 }
+
+Empleado * TallerClass::buscaEmpleado(int idRegistro) {
+    Empleado *reference;
+    if (!TallerClass::empleadosList.empty()){
+        for (auto & it : TallerClass::empleadosList) {
+            if ((it).second->getId() == idRegistro) {
+                reference = it.second;
+                return reference;
+            }
+        }
+    }
+    return nullptr;
+}
+
 list<pair<int, string>> TallerClass::buscaOrdenDeServicio(int typeList, string nombre) {
     list<pair<int, string>> listReturn;
     if (typeList == ORDENES_DE_SERVICIO and !TallerClass::serviciosList.empty()){
@@ -122,6 +136,20 @@ list<pair<int, string>> TallerClass::buscaOrdenDeServicio(int typeList, string n
         }
     }
     return listReturn;
+}
+
+Servicios * TallerClass::buscaOrdenDeServicio(int idOrden) {
+    Servicios *s;
+    if (!TallerClass::serviciosList.empty()){
+        for (auto it = TallerClass::serviciosList.begin(); it != TallerClass::serviciosList.end(); it++) {
+            auto idRegistrado = it->second->getId();
+            if (idRegistrado == idOrden) {
+                s = (*it).second;
+                return s;
+            }
+        }
+    }
+    return nullptr;
 }
 
 int TallerClass::getQuantityEmpleados(int typeEmpleado) {

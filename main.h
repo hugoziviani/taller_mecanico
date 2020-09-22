@@ -7,6 +7,7 @@
 
 
 #include "tallerClass/TallerClass.h"
+#include "UniqueId.h"
 #include <string>
 #include <cstring>
 #include <list>
@@ -15,9 +16,12 @@
 #include <vector>
 #include <iostream>
 #include <limits>
-#include "UniqueId.h"
+#include <clocale>
+#include <cstdlib>
 
-#define N_OPTION 5
+
+
+
 using namespace std;
 
 
@@ -30,8 +34,19 @@ list<tuple<int, string, string>> readFile(const char *path);
 int userAutenticationAndRedirect();
 void optionsTaller(string module);
 
+//Admin
 void optionsAdm(string);
-void optionsMecanico(string);
+void requiereId(string);
+void menuAnadirTrabajador(string module);
+void menuEditarTrabajador(string module);
+
+
+void menuCrearTrabajador(string);
+
+//Mecanico
+void optionsVendedorYMecanico(string module);
+
+//Atendiente
 void optionsAtendiente(string);
 
 
