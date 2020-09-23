@@ -14,23 +14,24 @@ int main() {
 
     createObjectsToTest(taller);
 
-    autorized = 2;
+    autorized = userAutenticationAndRedirect(FILE_PATH_AUTENTICATION);
     if (autorized == -1) return 0;
     while (autorized != -1) {
         switch (autorized) {
             case 1: {
                 option = 0;
-                while (option != -1) {
+                while (option != -10) {
                     option = getOption("Adminstración", &optionsAdm);
                     switch (option) {
                         case 0: {
                             cout << "\nCambiando de user" << endl;
-                            option = -1;
+                            option = -10;
                             break;
                         }
                         case 1: {
                             option = getOption("Añadir Trabajador", &menuAnadirTrabajador);
-                            while (option != -2) {
+                            while (option != -22) {
+                                option = getOption("Añadir Trabajador", &menuAnadirTrabajador);
                                 switch (option) {
                                     case 1:{
                                         string nombre, setor, funcion;
@@ -61,13 +62,17 @@ int main() {
                                         break;
 
                                     }
+                                    case 9:{
+                                        option=-22;
+                                        autorized=-1;
+                                        cout << "Saliendo..." << endl;
+                                    }
                                     default:{
                                         cout << "Opcion invalida" << endl;
-                                        option = getOption("Añadir Trabajador", &menuAnadirTrabajador);
                                     }
                                 }
                             }
-                            option=-2;
+                            option=-1;
                             break;
                         }
                         case 2: {
@@ -149,8 +154,8 @@ int main() {
                         }
                         case 9: {
                             cout << "\nSaliendo..." << endl;
-                            option = -1;
-                            autorized = 9;
+                            option = -10;
+                            autorized = -1;
                             break;
                         }
                         default: {
@@ -167,7 +172,7 @@ int main() {
                     switch (option) {
                         case 0: {
                             cout << "\nCambiando de user" << endl;
-                            option = -5;
+                            option = -2;
                             break;
                         }
                         case 1: {
@@ -202,15 +207,26 @@ int main() {
                                 cin.clear();
                                 cin>>id;
                                 auto empleado = taller->buscaEmpleado(id);
-                                taller->printListElements(CLIENTES);
-                                cout << "Cual és el ID del Cliente?" << endl;
-                                cin.clear();
-                                cin>>id;
-                                auto cliente = taller->buscaCliente(id);
-                                taller->crearOrdenServicio(empleado, cliente, PRESSUPUESTO);
-                                cout<<"Orden de servicio creada con sucesso..."<<endl;
-                                taller->printListElements(ORDENES_DE_SERVICIO);
-                                break;
+                                if(empleado != nullptr){
+                                    taller->printListElements(CLIENTES);
+                                    cout << "Cual és el ID del Cliente?" << endl;
+                                    cin.clear();
+                                    cin>>id;
+                                    auto cliente = taller->buscaCliente(id);
+                                    if(cliente != nullptr){
+                                        taller->crearOrdenServicio(empleado, cliente, PRESSUPUESTO);
+                                        cout<<"Orden de servicio creada con sucesso..."<<endl;
+                                        taller->printListElements(ORDENES_DE_SERVICIO);
+                                    }else{
+                                        cout<<"Cliente no existe..."<<endl;
+                                        break;
+                                    }
+                                    break;
+                                }else{
+                                    cout<<"Empleado no existe..."<<endl;
+                                    break;
+                                }
+
 
                             }else{
                                 cout<<"Favor Cadastrar al menos un Cliente, un Mecanico O vendedor antes de crear la Orden"<<endl;
@@ -254,20 +270,27 @@ int main() {
                                 cin.clear();
                                 cin>>id;
                                 auto empleado = taller->buscaEmpleado(id);
-
-                                taller->printListElements(ORDENES_DE_SERVICIO);
-                                cout << "Cual és el ID del  la orden que quieres tomar?" << endl;
-                                cin.clear();
-                                cin>>id;
-                                auto orden = taller->buscaOrdenDeServicio(id);
-                                if(orden != nullptr and empleado != nullptr){
-                                    cout<<"Orden de servicio tomada con sucesso..."<<endl;
-                                    orden->setStatus(EN_EJECUCION);
+                                if(empleado!= nullptr){
                                     taller->printListElements(ORDENES_DE_SERVICIO);
+                                    cout << "Cual és el ID del  la orden que quieres tomar?" << endl;
+                                    cin.clear();
+                                    cin>>id;
+                                    auto orden = taller->buscaOrdenDeServicio(id);
+                                    if(orden != nullptr and empleado != nullptr){
+                                        cout<<"Orden de servicio tomada con sucesso..."<<endl;
+                                        orden->setStatus(EN_EJECUCION);
+                                        taller->printListElements(ORDENES_DE_SERVICIO);
+                                    }else{
+                                        cout<<"No fue possíble tomar la orden"<<endl;
+                                    }
+                                    break;
+
                                 }else{
-                                    cout<<"No fue possíble tomar la orden"<<endl;
+                                    cout << "Empleado no existe..." << endl;
+                                    break;
                                 }
-                                break;
+
+
 
                             }else{
                                 cout<<"Todavia, no existen ordenes cadastradas."<<endl;
@@ -277,7 +300,7 @@ int main() {
                         case 9: {
                             cout << "\nSaliendo..." << endl;
                             option = -1;
-                            autorized = 9;
+                            autorized = -1;
                             break;
                         }
                         default: {
@@ -291,16 +314,10 @@ int main() {
                 option = 0;
                 while (option != -3) {
                     option = getOption("Atendiente", &optionsAtendiente);
-
-//                    "1-Visualizar Ordenes de Servicio\n" +
-//                    "2-Emitir Orden de Servicio\n" +
-//                    "3-Atualizar Ordenes de Servicio\n"
-//                    "0-Cambiar de usuario\n"
-//                    "9-Salir de la Aplicación\n"
                     switch (option) {
                         case 0: {
                             cout << "\nCambiando de user" << endl;
-                            option = -1;
+                            option = -3;
                             break;
                         }
                         case 1: {
@@ -385,8 +402,8 @@ int main() {
                         }
                         case 9: {
                             cout << "\nSaliendo..." << endl;
-                            option = -1;
-                            autorized = 9;
+                            option = -3;
+                            autorized = -1;
                             break;
                         }
                         default: {
@@ -397,13 +414,10 @@ int main() {
                 }
                 break;
             } //Atendiente
-        }
-        if (autorized == 9) {
-            return 0;
-        } else
-            autorized = userAutenticationAndRedirect(FILE_PATH_AUTENTICATION);
-    }
 
+        }
+        autorized = userAutenticationAndRedirect(FILE_PATH_AUTENTICATION);
+    }
     delete taller;
     return 0;
 }
