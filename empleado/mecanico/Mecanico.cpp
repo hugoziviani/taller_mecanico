@@ -1,7 +1,3 @@
-//
-// Created by Hugo Ziviani on 8/26/20.
-//
-
 #include "Mecanico.h"
 
 Mecanico::Mecanico(int id, const string &nombre, const string &setor, const string &funcion, bool disponible) :

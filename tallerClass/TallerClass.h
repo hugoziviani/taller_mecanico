@@ -1,7 +1,3 @@
-//
-// Created by Hugo Ziviani on 9/1/20.
-//
-
 #ifndef TALLER_MECANICO_TALLERCLASS_H
 #define TALLER_MECANICO_TALLERCLASS_H
 
@@ -48,13 +44,12 @@ public:
     void anadirCliente(const string &nombre, const string &telefono, string modelo, float kilometraje, string placa);
 
     Servicios * buscaOrdenDeServicio(int idOrden);
-
     Empleado *buscaEmpleado(int idRegistro);
+    Cliente *buscaCliente(int idRegistro);
 
-    list<pair<int, string>> buscaPersona(int typeList=-1, const string nombre=""); //TODO fazer para clientes e empregados
-    list<pair<int, string>> buscaOrdenDeServicio(int typeList, string ); //TODO adaptar para id ordem ou por cliente
+    list<pair<int, string>> buscaPersona(int typeList=-1, const string nombre="");
 
-    void crearOrdenServicio(Empleado *responsable = nullptr, Cliente *cliente = new Cliente(), int tipo = PRESSUPUESTO);
+    void crearOrdenServicio(Empleado *responsable = nullptr, Cliente *cliente = nullptr, int tipo = PRESSUPUESTO);
     void adicionarItemServicioEnOrden(int idOrdenServicio, const char *descripcion, float precio);
     void printListElements(int typeList);
 
@@ -65,12 +60,6 @@ public:
     static int getQuantityServicios();
     static void setQuantityServicios(int quantityServicios);
 
-
-
-
 };
-
-
-
 
 #endif //TALLER_MECANICO_TALLERCLASS_H

@@ -1,7 +1,3 @@
-//
-// Created by Hugo Ziviani on 9/1/20.
-//
-
 #ifndef TALLER_MECANICO_ITEMSERVICIO_H
 #define TALLER_MECANICO_ITEMSERVICIO_H
 

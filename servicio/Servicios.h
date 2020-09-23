@@ -1,7 +1,3 @@
-//
-// Created by Hugo Ziviani on 8/26/20.
-//
-
 #ifndef TALLER_MECANICO_SERVICIOS_H
 #define TALLER_MECANICO_SERVICIOS_H
 
@@ -13,14 +9,11 @@
 #include <ostream>
 
 #define PENDIENTE 0
-#define CERRADO 1
+#define AUTORIZADA 1
 #define PRESSUPUESTO 0
-#define VENTA 1
-
+#define EN_EJECUCION 2
 
 using namespace std;
-
-
 
 class Servicios {
 

@@ -1,13 +1,9 @@
 #include "main.h"
-#include "tallerClass/TallerClass.h"
-
 
 int TallerClass::quantityAtendientes = 0;
 int TallerClass::quantityMecanicos = 0;
 int TallerClass::quantityClientes = 0;
 int TallerClass::quantityServicios = 0;
-
-
 int UniqueId::nextID = 0;
 
 int main() {
@@ -16,45 +12,15 @@ int main() {
 
     TallerClass *taller = new TallerClass();
 
-/*
- *     Mecanico *m = new Mecanico(0, "guile", "oficina", "testador de motor", false);
-    Cliente *c = new Cliente(1, "fila duma", "99.32220-33");
-    c->anadirVehiculo(new Vehiculo(99,"OIaaaa",22.3,"DDD-00"));
-    taller->crearOrdenServicio(m, c, PRESSUPUESTO);
-    taller->crearOrdenServicio(m);
+    createObjectsToTest(taller);
 
-    taller->anadirCliente("jose garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
-    taller->anadirCliente("juan garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
-    taller->anadirCliente("juan felizx","22-22222.222", "kazinho", 933.4, "EXS-333");
-    taller->anadirCliente("feliiii garcia","22-22222.222", "kazinho", 933.4, "EXS-333");
-
-    taller->anadirAtendiente("juan garcia", "importados");
-    taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
-
-    taller->adicionarItemServicioEnOrden(4,"cartos", 99.3);
-    taller->adicionarItemServicioEnOrden(2,"cartoshahahahaha", 99.5);
-
-    auto r = taller->buscaPersona(CLIENTES, "juan");
-
-    for(auto & it : r){
-        cout<<"ID: "<<it.first;
-        cout<<" Nombre: "<<it.second<<endl;
-
-    }
- * */
-
-    taller->printListElements(CLIENTES);
-    taller->printListElements(ORDENES_DE_SERVICIO);
-    //TODO PARA TESTAR, apagar depois
-
-    //autorized = userAutenticationAndRedirect();
     autorized = 2;
     if (autorized == -1) return 0;
     while (autorized != -1) {
         switch (autorized) {
             case 1: {
                 option = 0;
-                while (option != -2) {
+                while (option != -1) {
                     option = getOption("Adminstración", &optionsAdm);
                     switch (option) {
                         case 0: {
@@ -196,8 +162,8 @@ int main() {
             } //Administración
             case 2: {
                 option = 0;
-                while (option != -5) {
-                    option = getOption("Mecanico", &optionsVendedorYMecanico);
+                while (option != -2) {
+                    option = getOption("Mecanico", &optionsMecanico);
                     switch (option) {
                         case 0: {
                             cout << "\nCambiando de user" << endl;
@@ -205,12 +171,108 @@ int main() {
                             break;
                         }
                         case 1: {
-                            cout << "Visualisar Ordenes de Servicio Liberadas" << endl;
+                            string nombre, telefono, modeloVehiculo, placa;
+                            float kilometraje;
+                            cout << "Cadastrar cliente e veículo" << endl;
+                            cout << "Nombre del Cliente:" << endl;
+                            cin.clear();
+                            cin>>nombre;
+                            cout << "Telefono del Cliente:" << endl;
+                            cin.clear();
+                            cin>>telefono;
+                            cout << "Modelo del Vehiculo:" << endl;
+                            cin.clear();
+                            cin>>modeloVehiculo;
+                            cout << "Placa del Vehiculo:" << endl;
+                            cin.clear();
+                            cin>>placa;
+                            cout << "Kilometraje del Vehiculo:" << endl;
+                            cin.clear();
+                            cin>>kilometraje;
+                            taller->anadirCliente(nombre, telefono, modeloVehiculo, kilometraje, placa);
+                            taller->printListElements(CLIENTES);
                             break;
                         }
                         case 2: {
-                            cout << "Tomar la orden de servicio" << endl;
-                            break;
+                            if(TallerClass::getQuantityClientes()>0 and TallerClass::getQuantityEmpleados(MECANICO)>0 and TallerClass::getQuantityEmpleados(ATEMDIENTE)>0){
+                                int id;
+                                taller->printListElements(EMPLEADOS);
+                                cout << "Crear ordem de servicio" << endl;
+                                cout << "Cual és el ID del responsable por la Orden?" << endl;
+                                cin.clear();
+                                cin>>id;
+                                auto empleado = taller->buscaEmpleado(id);
+                                taller->printListElements(CLIENTES);
+                                cout << "Cual és el ID del Cliente?" << endl;
+                                cin.clear();
+                                cin>>id;
+                                auto cliente = taller->buscaCliente(id);
+                                taller->crearOrdenServicio(empleado, cliente, PRESSUPUESTO);
+                                cout<<"Orden de servicio creada con sucesso..."<<endl;
+                                taller->printListElements(ORDENES_DE_SERVICIO);
+                                break;
+
+                            }else{
+                                cout<<"Favor Cadastrar al menos un Cliente, un Mecanico O vendedor antes de crear la Orden"<<endl;
+                                break;
+                            }
+                        }
+                        case 3: {
+                            if(TallerClass::getQuantityServicios()>0) {
+                                int id, op;
+                                cout << "Visualizar/Modificar Ordenes de Servicio" << endl;
+                                taller->printListElements(ORDENES_DE_SERVICIO);
+                                cout << "Cual és el ID de la orden que desea modificar?" << endl;
+                                cin.clear();
+                                cin >> id;
+                                auto orden = taller->buscaOrdenDeServicio(id);
+                                if (orden == nullptr) {
+                                    cout << "No fue possible localizar orden" << endl;
+                                    break;
+                                } else {
+                                    cout << "Orden del " << (orden->getCliente()->getNombre()) << " con el valor de "
+                                         << orden->calculatePrecioTotal() << " fué aceptada? (1)Sí (2)No" << endl;
+                                    cin.clear();
+                                    cin >> op;
+                                    if (op == 1) {
+                                        orden->setStatus(AUTORIZADA);
+                                        cout << *orden << endl;
+                                    }
+                                    break;
+                                }
+                            }else{
+                                cout<<"No existen ordenes de servicio cadastradas"<<endl;
+                                break;
+                            }
+                        }
+                        case 4: {
+                            if(TallerClass::getQuantityServicios()>0){
+                                int id;
+                                taller->printListElements(EMPLEADOS);
+                                cout << "Tomar ordene de servicio" << endl;
+                                cout << "Cual és tu ID?" << endl;
+                                cin.clear();
+                                cin>>id;
+                                auto empleado = taller->buscaEmpleado(id);
+
+                                taller->printListElements(ORDENES_DE_SERVICIO);
+                                cout << "Cual és el ID del  la orden que quieres tomar?" << endl;
+                                cin.clear();
+                                cin>>id;
+                                auto orden = taller->buscaOrdenDeServicio(id);
+                                if(orden != nullptr and empleado != nullptr){
+                                    cout<<"Orden de servicio tomada con sucesso..."<<endl;
+                                    orden->setStatus(EN_EJECUCION);
+                                    taller->printListElements(ORDENES_DE_SERVICIO);
+                                }else{
+                                    cout<<"No fue possíble tomar la orden"<<endl;
+                                }
+                                break;
+
+                            }else{
+                                cout<<"Todavia, no existen ordenes cadastradas."<<endl;
+                                break;
+                            }
                         }
                         case 9: {
                             cout << "\nSaliendo..." << endl;
@@ -227,8 +289,14 @@ int main() {
             } //Mecanico
             case 3: {
                 option = 0;
-                while (option != -1) {
+                while (option != -3) {
                     option = getOption("Atendiente", &optionsAtendiente);
+
+//                    "1-Visualizar Ordenes de Servicio\n" +
+//                    "2-Emitir Orden de Servicio\n" +
+//                    "3-Atualizar Ordenes de Servicio\n"
+//                    "0-Cambiar de usuario\n"
+//                    "9-Salir de la Aplicación\n"
                     switch (option) {
                         case 0: {
                             cout << "\nCambiando de user" << endl;
@@ -236,21 +304,84 @@ int main() {
                             break;
                         }
                         case 1: {
-                            cout << "Crear Orden de Servicio" << endl;
+                            cout << "Visualizar Ordenes de Servicio" << endl;
+                            taller->printListElements(ORDENES_DE_SERVICIO);
                             break;
                         }
                         case 2: {
-                            cout << "Editar Servicios" << endl;
+                            if(TallerClass::getQuantityClientes()>0 and TallerClass::getQuantityEmpleados(MECANICO)>0 and TallerClass::getQuantityEmpleados(ATEMDIENTE)>0){
+                                int id;
+                                taller->printListElements(EMPLEADOS);
+                                cout << "Crear ordem de servicio" << endl;
+                                cout << "Cual és el ID del responsable por la Orden?" << endl;
+                                cin.clear();
+                                cin>>id;
+                                auto empleado = taller->buscaEmpleado(id);
+                                taller->printListElements(CLIENTES);
+                                cout << "Cual és el ID del Cliente?" << endl;
+                                cin.clear();
+                                cin>>id;
+                                auto cliente = taller->buscaCliente(id);
+                                taller->crearOrdenServicio(empleado, cliente, PRESSUPUESTO);
+                                cout<<"Orden de servicio creada con sucesso..."<<endl;
+                                taller->printListElements(ORDENES_DE_SERVICIO);
+                                break;
+
+                            }else{
+                                cout<<"Favor Cadastrar al menos un Cliente, un Mecanico O vendedor antes de crear la Orden"<<endl;
+                                break;
+                            }
                             break;
                         }
                         case 3: {
+                            cout<<"3-Atualizar Ordenes de Servicio"<<endl;
+                            if(TallerClass::getQuantityServicios()>0) {
+                                int id, op;
+                                cout << "Modificar Ordenes de Servicio" << endl;
+                                taller->printListElements(ORDENES_DE_SERVICIO);
+                                cout << "Cual és el ID de la orden que desea modificar?" << endl;
+                                cin.clear();
+                                cin >> id;
+                                auto orden = taller->buscaOrdenDeServicio(id);
+                                if (orden == nullptr) {
+                                    cout << "No fue possible localizar orden" << endl;
+                                    break;
+                                } else {
+                                    cout << "Orden del " << *(orden->getCliente()) << " con el valor de "
+                                         << orden->calculatePrecioTotal() << " fué aceptada? (1)Sí (2)No" << endl;
+                                    cin.clear();
+                                    cin >> op;
+                                    if (op == 1) {
+                                        orden->setStatus(AUTORIZADA);
+                                        cout << *orden << endl;
+                                    }
+                                    break;
+                                }
+                            }
 
                         }
                         case 4: {
-                            cout << "Crear nuevo cliente" << endl;
-                            taller->anadirCliente("Ricochete", "22-2.333333", "kazin", 0.0, "EQK-9999");
+                            string nombre, telefono, modeloVehiculo, placa;
+                            float kilometraje;
+                            cout << "Cadastrar cliente e veículo" << endl;
+                            cout << "Nombre del Cliente:" << endl;
+                            cin.clear();
+                            cin>>nombre;
+                            cout << "Telefono del Cliente:" << endl;
+                            cin.clear();
+                            cin>>telefono;
+                            cout << "Modelo del Vehiculo:" << endl;
+                            cin.clear();
+                            cin>>modeloVehiculo;
+                            cout << "Placa del Vehiculo:" << endl;
+                            cin.clear();
+                            cin>>placa;
+                            cout << "Kilometraje del Vehiculo:" << endl;
+                            cin.clear();
+                            cin>>kilometraje;
+                            taller->anadirCliente(nombre, telefono, modeloVehiculo, kilometraje, placa);
                             taller->printListElements(CLIENTES);
-
+                            break;
                         }
                         case 9: {
                             cout << "\nSaliendo..." << endl;
@@ -270,7 +401,7 @@ int main() {
         if (autorized == 9) {
             return 0;
         } else
-            autorized = userAutenticationAndRedirect();
+            autorized = userAutenticationAndRedirect(FILE_PATH_AUTENTICATION);
     }
 
     delete taller;
@@ -278,7 +409,7 @@ int main() {
 }
 
 void programRoutes(string nameTaller, TallerClass *tallerObject) {
-
+//TODO retirar do MAIN e realizar aqui as rotas
     int caso;
     auto n = nameTaller;
     caso = getOption(n, &optionsMenu);
@@ -387,15 +518,14 @@ void programRoutes(string nameTaller, TallerClass *tallerObject) {
         }
     }
 }
-
-int userAutenticationAndRedirect() {
+int userAutenticationAndRedirect(const char *path) {
     string inputUsername, inputPass;
     cout << "Hola, dime tu user:" << endl;
     cin >> inputUsername;
     cout << "Dime tu contraseña " << inputUsername << endl;
     cin >> inputPass;
 
-    list<tuple<int, string, string>> usersAndPass = readFile("/Users/hz/CLionProjects/taller_mecanico/input/user.txt");
+    list<tuple<int, string, string>> usersAndPass = readFile(path);
     int autorized;
     autorized = loginAndReturnUserType(usersAndPass, inputUsername, inputPass);
     if (autorized != -99) {
@@ -407,7 +537,6 @@ int userAutenticationAndRedirect() {
     }
 
 }
-
 list<tuple<int, string, string>> readFile(const char *path) {
     list<tuple<int, string, string>> usersAndPass;
     FILE *arq;
@@ -425,7 +554,6 @@ list<tuple<int, string, string>> readFile(const char *path) {
     fclose(arq);
     return usersAndPass;
 }
-
 int loginAndReturnUserType(list<tuple<int, string, string>> usersAndPass, string user, string pass) {
     if (usersAndPass.empty()) return false;
     int ty;
@@ -443,7 +571,6 @@ int loginAndReturnUserType(list<tuple<int, string, string>> usersAndPass, string
     }
     return -99;
 }
-
 int getOption(string module, void (*func)(string)) {
     if (func == nullptr)return -1;
     func(module);
@@ -457,7 +584,6 @@ int getOption(string module, void (*func)(string)) {
     }
     return input;
 }
-
 void optionsBasic(string module) {
     string options[] = {
             "________" + module + "________:\n" +
@@ -466,7 +592,6 @@ void optionsBasic(string module) {
             "3-Consultar " + module + "\n"};
     cout << *options;
 }
-
 void optionsMenu(string module) {
     string options[] = {
             "________Taller " + module + "________:\n" +
@@ -480,7 +605,6 @@ void optionsMenu(string module) {
     };
     cout << *options;
 }
-
 void optionsTaller(string module) {
     string options[] = {
             "________" + module + "________:\n" +
@@ -489,7 +613,6 @@ void optionsTaller(string module) {
             "3-Consultar todos los servicios\n"};
     cout << *options;
 }
-
 
 //Admin
 void optionsAdm(string module) {
@@ -502,7 +625,6 @@ void optionsAdm(string module) {
     };
     cout << *options;
 }
-
 void menuAnadirTrabajador(string module) {
     string options[] = {
             "________" + module + "________:\n" +
@@ -521,7 +643,6 @@ void menuEditarTrabajador(string module) {
     };
     cout << *options;
 }
-
 void requiereId(string module) {
     string options[] = {
             "________" + module + "________:\n" +
@@ -532,24 +653,14 @@ void requiereId(string module) {
     cout << *options;
 }
 
-void menuCrearTrabajador(string module) {
-    string options[] = {
-            "________" + module + "________:\n" +
-            "1-Crear Mecánicos\n" +
-            "2-Crear Vendedores\n"
-            "9-Salir\n"
-    };
-    cout << *options;
-}
-
 //Mecanico
-void optionsVendedorYMecanico(string module) {
+void optionsMecanico(string module) {
     string options[] = {
             "________" + module + "________:\n" +
-            "1-Cadastrar cliente e veículo\n" +
-            "2-Gerar ordem de serviço\n"
+            "1-Cadastrar cliente y vehiculo\n" +
+            "2-Crear orden de servicio\n"
             "3-Visualizar y modificar ordenes de servicio\n"
-            "4-Tomar orden de servicio pelo ID\n"
+            "4-Tomar orden de servicio por ID\n"
             "0-Cambiar de usuario\n"
             "9-Salir de la Aplicación\n"
     };
@@ -563,8 +674,18 @@ void optionsAtendiente(string module) {
             "1-Visualizar Ordenes de Servicio\n" +
             "2-Emitir Orden de Servicio\n" +
             "3-Atualizar Ordenes de Servicio\n"
+            "4-Crear Nuevo Cliente\n"
             "0-Cambiar de usuario\n"
             "9-Salir de la Aplicación\n"
     };
     cout << *options;
+}
+
+void createObjectsToTest(TallerClass *taller){
+    taller->anadirCliente("jose1 garcia","22-22222.222", "kazinho1", 933.4, "EXS-339993");
+    taller->anadirCliente("juan2 garcia","22-22222.222", "kazinho2", 933.4, "EXS-331113");
+    taller->anadirCliente("juan3 felizx","22-22222.222", "kazinho3", 933.4, "EXS-33353");
+    taller->anadirCliente("feliiii4 garcia","22-22222.222", "kazinho4", 933.4, "EXS-366633");
+    taller->anadirAtendiente("juan garcia", "importados");
+    taller->anadirMecanico("joselito junez", "taller de grassa", "mecánico principal");
 }
